@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="navBar" id="navBar">  <!-- Divisão da navbar Desktop  -->
+        <div class="titleNav">
+            <img src="./img/logo.jpg" style="height: 80px; width: 150px;" id="logo">
+        </div>
+        <ul class="navLinks">  <!-- ul tag de lista -->
+
+            <li class="navLink ativa"> <!-- li tag de conteudo da lista -->
+                <a href="#home">Home</a>
+            </li>
+
+            <li class="navLink">
+                <a href="#Projetos">Sobre</a>
+            </li>
+
+            <li class="navLink">
+                <a href="#sobre">Nossa História</a>
+            </li>
+
+            <li class="navLink">
+                <a href="#contato">Contato</a>
+            </li>
+
+        </ul>
+
+
+        <div class="btnsNav">
+            <a href="cadastro.html">
+                <button class="btnLogin" id="btnRegister"> Registrar</button>
+                </a>
+            <a href="login.html">
+            <button class="btnLogin">Entrar</button>
+            </a>
+        </div>
+    </nav>
+
+   <!-- carrosel -->
+
+   <div class="slider">
+    <div class="slides">
+
+        <input type="radio" name="radio-btn" id="radio1">
+        <input type="radio" name="radio-btn" id="radio2">
+        <input type="radio" name="radio-btn" id="radio3">
+        <input type="radio" name="radio-btn" id="radio4">
+
+        <!-- slide imagens -->
+        <div class="slide first">
+            <img src="./img/shelby.jpg" alt="Imagem 1">
+        </div>
+        <div class="slide">
+            <img src="./img/nivus.jpg" alt="Imagem 2">
+        </div>
+        <div class="slide">
+            <img src="./img/golf.jpg" alt="Imagem 3">
+        </div>
+        <div class="slide">
+            <img src="./img/lancer.webp" alt="Imagem 4">
+        </div>
+        <!-- fim -->
+
+        <!-- navigation automatica -->
+
+        <div class="navigation-auto">
+            <div class="auto-btn1"></div>
+            <div class="auto-btn2"></div>
+            <div class="auto-btn3"></div>
+            <div class="auto-btn4"></div>
+        </div>
+
+    </div>
+
+    <div class="manual-navigation">
+        <label for="radio1" class="manual-btn"></label>
+        <label for="radio2" class="manual-btn"></label>
+        <label for="radio3" class="manual-btn"></label>
+        <label for="radio4" class="manual-btn"></label>
+    </div>
+
+   </div>
+
+
+   <section class="sobre" id="sobre"> <!-- section do sobre nos -->
+    <div class="mainSobre ">
+        <div class="imgSobre"><img src="./img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg"></div>
+        <div class="textoSobre">
+            <h2 class="title" id="titleQuemSomos">Importância</h2>
+
+            <p class="descricao" id="descQuemSomos">Meu gosto por carros se iniciou desde bem pequeno, quando meu pai
+                tinha um fusca, com o passar do tempo fui apreciando mais e mais e sempre pesquisando por modelos e se interessando
+                cada vez mais pela tecnologia, velocidade, sons e diferentes fatores que os amantes de carros os avaliam.
+            </p>
+
+
+
+
+        </div>
+    </div>
+</section>
+
+   <script src="script.js"></script>
+    
+</body>
+</html>

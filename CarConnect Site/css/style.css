@@ -1,0 +1,432 @@
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #ECEFCA;
+    animation: light-to-dark 0.3s ease-in-out;
+    background-repeat: no-repeat;
+    padding-top: 120px; 
+}
+
+
+
+.mode#corpo {
+    background-color: #01050c;
+    animation: dark-to-light 0.3s ease-in-out;
+}
+
+#darkmode {
+    font-size: 15pt;
+    color: #dab714;
+    cursor: pointer;
+}
+
+.mode#corpo nav {
+    background-color:
+        #00010279;
+    box-shadow: none;
+}
+
+.mode#corpo nav a {
+    color: #fff
+}
+
+.mode#corpo .btnnn {
+    background-color: rgb(0, 193, 106);
+    color: #fff;
+
+}
+
+.mode#corpo .btnnnP {
+    color: #fff;
+    border: 1px solid #fff;
+
+}
+
+.mode#corpo i {
+    color: #fff;
+
+}
+
+.mode#corpo .btnsSocial a {
+    background-color: #083131;
+}
+
+.mode#corpo .title {
+    color: #fff;
+}
+
+.mode#corpo .descricao {
+    color: #fff;
+}
+
+
+nav {
+    width: 100%;
+    background-color: #547792;
+    padding: 23px 10%;
+    z-index: 1;
+    box-shadow: 5px 5px 5px 1px #0e0e0e20;
+    transition: top 0.6s ease-in-out;
+}
+
+span {
+    font-weight: 600;
+    color: #118a8a;
+}
+
+section {
+    margin-top: -1px;
+    padding-top: 100px;
+}
+
+#logo {
+    border-radius: 120px;
+    padding-left: 19px;
+    padding-right: 19px;
+    padding: 1px;
+}
+
+.titleNav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.navLink {
+    padding: 0px 15px;
+    list-style: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navLink:hover{
+    color: #213448; 
+    transform: scale(1.05);
+}
+
+.navLink a {
+    display: flex;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#nameNav {
+    color: #118a8a;
+}
+
+.btnsNav i {
+    padding-left: 15px;
+}
+
+
+.btnnn {
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-weight: 600;
+    color: #fff;
+    background-color: rgb(0, 193, 106);
+    font-size: 11.3pt;
+
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.021);
+    cursor: pointer;
+    transition: background-color .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.btnnnP {
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    font-size: 11.3pt;
+
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.021);
+    cursor: pointer;
+    transition: background-color .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+}
+
+.btnnn i {
+    margin-right: 6px;
+    color: #ECEFCA;
+    font-size: 10px;
+}
+
+.btnnnP i {
+    margin-right: 5px;
+    color: #ECEFCA;
+    font-size: 10px;
+
+
+
+}
+
+.btnLogin {
+    height: 41px;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border: none !important;
+    outline: none !important; 
+    border-radius: 3px;
+    font-weight: 500;
+    color: #ECEFCA;
+    background-color: #94B4C1;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.021);
+    cursor: pointer;
+    transition: background-color .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: 0.5s;
+}
+
+.btnLogin:hover {
+    background-color: #213448;
+    color: #ECEFCA;
+}
+
+#btnRegister {
+    background: #94B4C1;
+    color: #ECEFCA;
+    border: none !important;
+    outline: none !important;
+}
+
+#btnRegister:hover {
+    background-color: #213448;
+    color: #ECEFCA;
+}
+
+.btnsNav {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+
+
+.btnnn:hover {
+    background-color: #047240;
+    color: #ECEFCA;
+
+}
+
+
+.btnsNav a {
+    text-decoration: none;
+    border: none;
+}
+
+.btnsNav a:focus,
+.btnsNav a:active {
+    outline: none;
+    border: none;
+}
+
+
+.text i {
+    font-size: 2.6rem;
+    padding: 0px 0px 0px 4px;
+    text-decoration: none;
+}
+
+.slider{
+    margin: 0 auto;
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.slides{
+    width: 400%;
+    height: 400px;
+    display: flex;
+}
+
+.slides input{
+    display: none;
+}
+
+.slide{
+    width: 25%;
+    position: relative;
+}
+
+.slide img{
+    width: 800px;
+}
+
+.manual-navigation{
+    position: absolute;
+    width: 800px;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
+
+.manual-btn{
+    border: 2px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right: 40px;
+}
+
+.manual-btn:hover{
+    background-color: #fff;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+    margin-left: -25%;
+}
+
+#radio3:checked ~ .first{
+    margin-left: -50%;
+}
+
+#radio4:checked ~ .first{
+    margin-left: -75%;
+}
+
+.navigation-auto div{
+    border: 2px solid #118a8a;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.navigation-auto{
+    position: absolute;
+    width: 800px;
+    margin-top: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation-auto div:not(:last-child){
+    margin-right: 40px;
+}
+
+#radio1:checked ~ .navigation-auto .auto-btn1{
+    background-color: #547792;
+}
+
+#radio2:checked ~ .navigation-auto .auto-btn2{
+    background-color: #547792;
+}
+
+#radio3:checked ~ .navigation-auto .auto-btn3{
+    background-color: #547792;
+}
+
+#radio4:checked ~ .navigation-auto .auto-btn4{
+    background-color: #547792;
+}
+
+
+.sobre {
+    margin-bottom: 10%;
+
+
+}
+
+.mainSobre {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 23px 10%;
+    visibility: visible;
+    background-color: #213448;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+
+
+.btnsHome button {
+    margin: 0px 15px 0px 0px;
+}
+
+.btnsHome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+}
+
+.textoSobre {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 15%;
+    flex-direction: column;
+    max-width: 40rem;
+    gap: 1.5rem;
+    color: #ECEFCA;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.imgSobre img {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px; 
+}
