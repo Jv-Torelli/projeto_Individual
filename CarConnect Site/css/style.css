@@ -281,6 +281,7 @@ section {
     height: 400px;
     overflow: hidden;
     margin-top: 50px;
+    border-radius: 20px;
 }
 
 .slides{
