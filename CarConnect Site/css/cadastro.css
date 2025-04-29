@@ -1,0 +1,237 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #ECEFCA;
+    background-image: url(../img/imagemCad.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 120px;
+}
+
+nav {
+    width: 100%;
+    background-color: #213448;
+    padding: 23px 10%;
+    z-index: 1;
+    box-shadow: 5px 5px 5px 1px #0e0e0e20;
+    transition: top 0.6s ease-in-out;
+}
+
+span {
+    font-weight: 600;
+    color: #118a8a;
+}
+
+section {
+    margin-top: -1px;
+    padding-top: 100px;
+}
+
+.navBar {
+    width: 100%;
+    background-color: #213448;
+    padding: 20px 10%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.titleNav img {
+    height: 80px;
+    width: 150px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 30px;
+}
+
+#logo{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navLink {
+    list-style: none;
+}
+
+.navLink a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: #ECEFCA;
+    transition: color 0.3s ease-in-out;
+}
+
+.navLink a:hover {
+    color: #94B4C1;
+}
+
+.btnsNav {
+    display: flex;
+    gap: 15px;
+}
+
+.btnLogin {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ECEFCA;
+    background-color: #94B4C1;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnLogin:hover {
+    background-color: #547792;
+}
+
+.container {
+    background: #ECEFCA;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+h2 {
+    color: #213448;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #94B4C1;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #547792;
+}
+
+button {
+    width: 100%;
+    background-color: #547792;
+    color: white;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #94B4C1;
+}
+
+.rodape-moderno {
+    background-color: #213448;
+    color: #ECEFCA;
+    padding: 20px;
+    text-align: center;
+}
+
+.conteudo-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.area-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-rodape {
+    width: 100px;
+    height: auto;
+    max-width: 120px;
+}
+
+.area-navegacao {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-rodape {
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    background-color: #547792;
+}
+
+.menu-rodape a {
+    text-decoration: none;
+    color: #ECEFCA;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.menu-rodape a:hover {
+    color: #94B4C1;
+}
+
+.area-redes-sociais {
+    flex: 1;
+    text-align: right;
+}
+
+.icones-sociais {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.icones-sociais a {
+    margin-left: 20px;
+    font-size: 26px;
+    color: #00bfff;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.icones-sociais a:hover {
+    color: #547792;
+    transform: scale(1.2);
+}
+
+.rodape-final {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ECEFCA;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+    text-align: center;
+}
+

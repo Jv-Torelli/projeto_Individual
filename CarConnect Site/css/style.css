@@ -73,7 +73,7 @@ body {
 
 nav {
     width: 100%;
-    background-color: #547792;
+    background-color: #213448;
     padding: 23px 10%;
     z-index: 1;
     box-shadow: 5px 5px 5px 1px #0e0e0e20;
@@ -91,12 +91,9 @@ section {
 }
 
 #logo {
-    border-radius: 120px;
     padding-left: 19px;
     padding-right: 19px;
-    padding: 1px;
 }
-
 .titleNav {
     display: flex;
     align-items: center;
@@ -128,7 +125,7 @@ section {
 }
 
 .navLink:hover{
-    color: #213448; 
+    color: #547792; 
     transform: scale(1.05);
 }
 
@@ -226,7 +223,7 @@ section {
 }
 
 .btnLogin:hover {
-    background-color: #213448;
+    background-color: #547792;
     color: #ECEFCA;
 }
 
@@ -238,7 +235,7 @@ section {
 }
 
 #btnRegister:hover {
-    background-color: #213448;
+    background-color: #547792;
     color: #ECEFCA;
 }
 
@@ -431,3 +428,155 @@ section {
     object-fit: cover;
     border-radius: 15px; 
 }
+
+#cardServico {
+    box-shadow: none;
+}
+
+#Servicos {
+    padding: 23px 10%;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    margin-bottom: 90px;
+}
+
+.cardsServico {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    justify-content: center;
+  }
+
+.headerProjeto {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 25%;
+
+}
+
+.servicosContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    box-shadow: 0px 0px 12px -6px black;
+    border-radius: 15px;
+}
+
+.descServico {
+    color: #547792;
+    margin-bottom: 2%;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.titleServico {
+    font-size: 58px;
+    color: #213448;
+    font-weight: 700;
+    text-align: center;
+}
+
+.card-img-servico {
+    height: 132px;
+    width: 132px;
+}
+
+.cardHeaderServico {
+    display: flex;
+    align-items: center;
+    padding: 23px;
+    gap: 16px;
+    justify-content: center;
+}
+
+.card-title{
+    font-size:20px;
+}
+
+
+.cardHeaderServico img{
+   border-radius: 20px;
+   margin-bottom: 3%;
+}
+
+
+.rodape-moderno {
+    background-color: #213448;
+    color: #ECEFCA;
+    padding: 10px;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  .conteudo-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .area-logo {
+    flex: 1;
+  }
+  
+  .logo-rodape {
+    width: 120px;
+  }
+  
+
+  .area-navegacao {
+    flex: 2;
+  }
+  
+  .menu-rodape {
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    background-color: #547792;
+  }
+  
+  .menu-rodape a {
+    text-decoration: none;
+    color: #ECEFCA;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .menu-rodape a:hover {
+    color: #94B4C1;
+  }
+  
+  
+  .area-redes-sociais {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .icones-sociais a {
+    margin-left: 25px;
+    font-size: 26px;
+    color: #00bfff;
+    transition: transform 0.3s, color 0.3s;
+  }
+  
+  .icones-sociais a:hover {
+    color: #547792;
+    transform: scale(1.2);
+  }
+  
+  .rodape-final {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #ECEFCA;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 5px;
+  }
+  
+  
