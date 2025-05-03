@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Car Connect</title>
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navBar" id="navBar">  <!-- Divisão da navbar Desktop  -->
+        <div class="titleNav">
+            <img src="./assets/img/logoCarConnect-SemFundo.png" style="height: 80px; width: 150px;" id="logo">
+        </div>
+        <ul class="navLinks"> 
+
+          <li class="navLink ativa">
+            <a href="index.html">Home</a>
+        </li>
+
+        <li class="navLink">
+            <a href="index.html">Sobre</a>
+        </li>
+
+        <li class="navLink">
+            <a href="index.html">Nossa História</a>
+        </li>
+
+        <li class="navLink">
+            <a href="index.html">Serviços</a>
+        </li>
+
+        </ul>
+
+
+        <div class="btnsNav">
+            <a href="cadastro.html">
+                <button class="btnLogin" id="btnRegister"> Registrar</button>
+                </a>
+            <a href="login.html">
+            <button class="btnLogin">Entrar</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+      <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
+        </div>
+    </div>
+        <h2>login</h2>
+        <form id="signupForm">
+            <input type="email" placeholder="E-mail" required id="email_input">
+            <input type="password" placeholder="Senha" required id="senha_input">
+            <button onclick="entrar()">Entrar</button>
+        </form>
+    </div>
+
+
+    <footer class="rodape-moderno">
+        <div class="conteudo-rodape">
+          
+          <div class="area-logo">
+            <img src="./assets/img/logoCarConnect-SemFundo.png" alt="Car Connect" class="logo-rodape">
+          </div>
+      
+          <div class="area-navegacao">
+            <nav class="menu-rodape">
+              <a href="#">Início</a>
+              <a href="#">Sobre</a>
+              <a href="#">Nossa História</a>
+              <a href="#">Serviços</a>
+              <!-- <a href="#">Contato</a> -->
+            </nav>
+          </div>
+      
+          <div class="area-redes-sociais">
+            <div class="icones-sociais">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+      
+        </div>
+      
+        <div class="rodape-final">
+          <p>© 2025 Car Connect. Todos os direitos reservados.</p>
+        </div>
+      </footer>
+
+</body>
+</html>
+
+
+<script>
+
+function entrar() {
+        aguardar();
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    setTimeout(function () {
+                        window.location = "feed.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+
+</script>
+ 

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Social</title>
+    <link rel="stylesheet" href="./css/feed.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <nav class="barra-lateral">
+            <div class="perfil">
+                <label for="input-imagem">
+                    <div class="imgPerfil">
+                        <img id="imagem-perfil">
+                        <div class="icone-upload"><h3><i class="fas fa-camera"></i></h3></div>
+                    </div>
+                </label>
+                <input type="file" id="input-imagem" accept="image/*" onchange="carregarImagem(event)">
+                
+                <h3 id="nome-usuario">Usuário</h3>
+                <button onclick="window.location.href='perfil.html'">Perfil</button>
+                <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+                <button class="botao-criar-post"><i class="fa-solid fa-plus"></i>Post</button>
+                
+            </div>
+        </nav>
+
+        <div class="feed">
+            <div class="postagem">
+                <div class="topo-postagem">
+                    <img class="imagem-usuario" src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do usuário">
+                    <h2 class="nome-usuario">Jv_Torelli7</h2>
+                </div>
+
+                <div class="imgPost">
+                    <img src="./assets/img/shelby.jpg" alt="">
+                </div>
+                
+                <div class="acoes-postagem">
+                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                </div>
+
+                <div class="comentarios" style="display: none;">
+                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                    <button onclick="enviarComentario(this)">Enviar</button>
+                    <div class="lista-comentarios"></div>
+                </div>
+                <p class="descricao-postagem">Este é um exemplo de post na rede social.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function carregarImagem(event) {
+            const imagemPerfil = document.getElementById('imagem-perfil');
+            imagemPerfil.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function curtirPost(icone) {
+            if (icone.classList.contains("fa-regular")) {
+                icone.classList.remove("fa-regular");
+                icone.classList.add("fa-solid");
+                icone.style.color = "red";
+            } else {
+                icone.classList.remove("fa-solid");
+                icone.classList.add("fa-regular");
+                icone.style.color = "black";
+            }
+        }
+
+        function toggleComentarios(icone) {
+            const comentariosDiv = icone.parentElement.nextElementSibling;
+            comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
+        }
+
+        function enviarComentario(botao) {
+            const divComentarios = botao.nextElementSibling;
+            const inputComentario = botao.previousElementSibling;
+
+            if (inputComentario.value.trim() !== "") {
+                const novoComentario = document.createElement("p");
+                novoComentario.textContent = inputComentario.value;
+                divComentarios.appendChild(novoComentario);
+                inputComentario.value = "";
+            }
+        }
+    </script>
