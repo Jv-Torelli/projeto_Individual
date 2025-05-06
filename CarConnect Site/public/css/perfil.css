@@ -1,106 +1,126 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #FBFBFB;
+    color: #212529;
+    line-height: 1.6;
+    padding-top: 20px;
 }
 
 .container {
-    display: flex;
-}
-
-.barra-lateral {
-    position: fixed;
-    width: 140px;
-    background-color: #2d2d2d;
-    color: white;
+    max-width: 1300px;
+    margin: 0 auto;
     padding: 20px;
-    height: 700px;
 }
 
-label{
-    margin: 0;
-}
-
-.imgPerfil{
-    position: relative;
-    background-color: #94B4C1;
-    width: 90px;
-    height: 90px;
-    border-radius: 80px;
-    top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.perfil {
-    text-align: center;
-    position: relative;
-}
-
-.perfil img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.icone-upload {
-    position: absolute;
-    top: 64px;
-    left: 76%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 100px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.icone-upload h3 {
-    margin: 0;
-    position: relative;
-    font-size: 16px;
-    top: 6px;
-}
-
-#input-imagem {
-    display: none;
-}
-
-#nome-usuario {
-    margin-top: 35px;
-    
-}
-
-.perfil button {
-    position: relative;
-    top: 80px;
-    width: 80%;
-    padding: 10px;
-    margin-top: 25px;
+.botao-voltar {
+    background-color: transparent;
     border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #213448;
+}
+
+.botao-voltar:hover {
+    color: black;
+}
+
+.cabecalho-perfil {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.foto-perfil {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.estatisticas-perfil {
+    margin-left: 50px;
+}
+
+.nome-usuario {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.estatisticas {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 15px;
+}
+
+.item-estatistica {
+    font-size: 18px;
+}
+
+.numero {
+    font-weight: bold;
+}
+
+.nomeComp{
+    font-size: 18.5px;
+    font-weight: 500;
+    line-height: 0.8;
+}
+
+.biografia {
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.botao-seguir {
     background-color: #547792;
     color: white;
-    font-size: 18px;
-    font-weight: 500;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    border-radius: 5px;
+    transition: background-color 0.2s;
 }
 
-.perfil button:hover {
+.botao-seguir:hover {
     background-color: #94B4C1;
-}         
+}
 
-.feed {
-    flex: 1;
-    padding: 20px;
+.seguindo {
+    background-color: #547792;
+    color: white;
+}
+
+.seguindo:hover {
+    background-color: #94B4C1;
+}
+
+.partePost{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 35%;
+    border-bottom: solid 2px rgba(0, 0, 0, 0.5);
+}
+
+.fa-table:before {
+    content: "\f0ce";
+    font-size: 36px;
 }
 
 .lista-postagens {
-    display: flex;
-    margin-left: 220px;
-    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 30px;

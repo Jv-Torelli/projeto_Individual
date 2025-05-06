@@ -30,63 +30,113 @@
         </nav>
 
         <div class="feed">
-            <div class="postagem">
-                <div class="topo-postagem">
-                    <img class="imagem-usuario" src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do usuário">
-                    <h2 class="nome-usuario">Jv_Torelli7</h2>
-                </div>
-
-                <div class="imgPost">
-                    <img src="./assets/img/shelby.jpg" alt="">
+            <div class="lista-postagens">
+                <!-- Postagem 1 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    </div>
+                    <img src="./assets/img/shelby.jpg" alt="Imagem da Postagem 1" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                    </div>
+                    <div class="info-curtidas">256 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Este Shelby é demais!!!! #Carros #velozesefuriosos
+                    </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 14 comentários</div>
+                    <div class="tempo-postagem">há 2 horas</div>
                 </div>
                 
-                <div class="acoes-postagem">
-                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                <!-- Postagem 2 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    </div>
+                    <img src="./assets/img/nivus.jpg" alt="Imagem da Postagem 2" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                    </div>
+                    <div class="info-curtidas">189 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Esse nivus é animal #volks
+                    </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 8 comentários</div>
+                    <div class="tempo-postagem">há 1 dia</div>
                 </div>
-
-                <div class="comentarios" style="display: none;">
-                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                    <button onclick="enviarComentario(this)">Enviar</button>
-                    <div class="lista-comentarios"></div>
+                
+                <!-- Postagem 3 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    </div>
+                    <img src="./assets/img/lancer.webp" alt="Imagem da Postagem 3" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                    </div>
+                    <div class="info-curtidas">324 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Este evento foi incrível!!! #momentos #memórias
+                    </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 21 comentários</div>
+                    <div class="tempo-postagem">há 3 dias</div>
                 </div>
-                <p class="descricao-postagem">Este é um exemplo de post na rede social.</p>
             </div>
         </div>
-    </div>
 
-    <script>
-        function carregarImagem(event) {
-            const imagemPerfil = document.getElementById('imagem-perfil');
-            imagemPerfil.src = URL.createObjectURL(event.target.files[0]);
+</body>
+
+<script>
+    function curtirPost(icone) {
+        if (icone.classList.contains("fa-regular")) {
+            icone.classList.remove("fa-regular");
+            icone.classList.add("fa-solid");
+            icone.style.color = "red";
+        } else {
+            icone.classList.remove("fa-solid");
+            icone.classList.add("fa-regular");
+            icone.style.color = "black";
         }
+    }
 
-        function curtirPost(icone) {
-            if (icone.classList.contains("fa-regular")) {
-                icone.classList.remove("fa-regular");
-                icone.classList.add("fa-solid");
-                icone.style.color = "red";
-            } else {
-                icone.classList.remove("fa-solid");
-                icone.classList.add("fa-regular");
-                icone.style.color = "black";
-            }
+    function toggleComentarios(icone) {
+        const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+        comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function enviarComentario(botao) {
+        const divComentarios = botao.nextElementSibling;
+        const inputComentario = botao.previousElementSibling;
+
+        if (inputComentario.value.trim() !== "") {
+            const novoComentario = document.createElement("p");
+            novoComentario.textContent = inputComentario.value;
+            divComentarios.appendChild(novoComentario);
+            inputComentario.value = "";
         }
-
-        function toggleComentarios(icone) {
-            const comentariosDiv = icone.parentElement.nextElementSibling;
-            comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
-        }
-
-        function enviarComentario(botao) {
-            const divComentarios = botao.nextElementSibling;
-            const inputComentario = botao.previousElementSibling;
-
-            if (inputComentario.value.trim() !== "") {
-                const novoComentario = document.createElement("p");
-                novoComentario.textContent = inputComentario.value;
-                divComentarios.appendChild(novoComentario);
-                inputComentario.value = "";
-            }
-        }
-    </script>
+    }
+</script>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/perfil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Perfil CarConnect</title>
+</head>
+<body>
+    <div class="container">
+        <button class="botao-voltar" onclick="voltar()">← Voltar</button>
+
+        <div class="cabecalho-perfil">
+            <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto de Perfil" class="foto-perfil">
+            <div class="estatisticas-perfil">
+                <h2 class="nome-usuario">Jv_Torelli7</h2>
+                <div class="estatisticas">
+                    <div class="item-estatistica">
+                        <span class="numero">3</span> publicações
+                    </div>
+                    <div class="item-estatistica">
+                        <span class="numero" id="contagem-seguidores">1.245</span> seguidores
+                    </div>
+                </div>
+                <p class="nomeComp">João Victor Torelli de Matos</p><br>
+                <p class="biografia">👨‍💻 Estudante de ADS | SPTech <br>
+                    💡 Apaixonado por tecnologia e inovação <br>
+                    📚 Em busca de conhecimento constante <br>
+                    🚀 Futuro Dev | Backend & Cloud Enthusiast <br>
+                    📍 São Paulo - SP</p>
+                <button class="botao-seguir" id="botao-seguir">Seguir</button>
+            </div>
+        </div>
+
+        <div class="partePost">
+            <i class="fas fa-table"></i>
+        </div>
+
+        <div class="lista-postagens">
+            <!-- Postagem 1 -->
+            <div class="postagem">
+                <div class="cabecalho-postagem">
+                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                </div>
+                <img src="./assets/img/shelby.jpg" alt="Imagem da Postagem 1" class="imagem-postagem">
+                <div class="acoes-postagem">
+                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                </div>
+                <div class="info-curtidas">256 curtidas</div>
+                <div class="legenda-postagem">
+                    <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                    Este Shelby é demais!!!! #Carros #velozesefuriosos
+                </div>
+                <div class="comentarios" style="display: none;">
+                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                    <button onclick="enviarComentario(this)">Enviar</button>
+                    <div class="lista-comentarios"></div>
+                </div>
+                <div class="comentarios">Ver todos os 14 comentários</div>
+                <div class="tempo-postagem">há 2 horas</div>
+            </div>
+            
+            <!-- Postagem 2 -->
+            <div class="postagem">
+                <div class="cabecalho-postagem">
+                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                </div>
+                <img src="./assets/img/nivus.jpg" alt="Imagem da Postagem 2" class="imagem-postagem">
+                <div class="acoes-postagem">
+                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                </div>
+                <div class="info-curtidas">189 curtidas</div>
+                <div class="legenda-postagem">
+                    <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                    Esse nivus é animal #volks
+                </div>
+                <div class="comentarios" style="display: none;">
+                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                    <button onclick="enviarComentario(this)">Enviar</button>
+                    <div class="lista-comentarios"></div>
+                </div>
+                <div class="comentarios">Ver todos os 8 comentários</div>
+                <div class="tempo-postagem">há 1 dia</div>
+            </div>
+            
+            <!-- Postagem 3 -->
+            <div class="postagem">
+                <div class="cabecalho-postagem">
+                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
+                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                </div>
+                <img src="./assets/img/lancer.webp" alt="Imagem da Postagem 3" class="imagem-postagem">
+                <div class="acoes-postagem">
+                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                </div>
+                <div class="info-curtidas">324 curtidas</div>
+                <div class="legenda-postagem">
+                    <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                    Este evento foi incrível!!! #momentos #memórias
+                </div>
+                <div class="comentarios" style="display: none;">
+                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                    <button onclick="enviarComentario(this)">Enviar</button>
+                    <div class="lista-comentarios"></div>
+                </div>
+                <div class="comentarios">Ver todos os 21 comentários</div>
+                <div class="tempo-postagem">há 3 dias</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    const botaoSeguir = document.getElementById('botao-seguir');
+    const contagemSeguidores = document.getElementById('contagem-seguidores');
+    let seguindo = false;
+    let numeroSeguidores = 1245;
+
+    botaoSeguir.addEventListener('click', function() {
+        if (seguindo) {
+            botaoSeguir.textContent = 'Seguir';
+            botaoSeguir.classList.remove('seguindo');
+            numeroSeguidores--;
+        } else {
+            botaoSeguir.textContent = 'Seguindo';
+            botaoSeguir.classList.add('seguindo');
+            numeroSeguidores++;
+        }
+        
+        // Atualiza o número de seguidores com contador
+        contagemSeguidores.textContent = numeroSeguidores.toLocaleString('pt-BR');
+        seguindo = !seguindo;
+    });
+
+    // Faz o a função de voltar ao clicar no botão
+    document.querySelector('.botao-voltar').addEventListener('click', function() {
+            let contador = 3;
+            const intervalo = setInterval(function() {
+                contador--;
+                if (contador <= 0) {
+                    clearInterval(intervalo);
+                    window.location.href = './feed.html'; // Redireciona para o feed
+                }
+            }, 500);
+        });
+
+    function curtirPost(icone) {
+        if (icone.classList.contains("fa-regular")) {
+            icone.classList.remove("fa-regular");
+            icone.classList.add("fa-solid");
+            icone.style.color = "red";
+        } else {
+            icone.classList.remove("fa-solid");
+            icone.classList.add("fa-regular");
+            icone.style.color = "black";
+        }
+    }
+
+    function toggleComentarios(icone) {
+        const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+        comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function enviarComentario(botao) {
+        const divComentarios = botao.nextElementSibling;
+        const inputComentario = botao.previousElementSibling;
+
+        if (inputComentario.value.trim() !== "") {
+            const novoComentario = document.createElement("p");
+            novoComentario.textContent = inputComentario.value;
+            divComentarios.appendChild(novoComentario);
+            inputComentario.value = "";
+        }
+    }
+</script>

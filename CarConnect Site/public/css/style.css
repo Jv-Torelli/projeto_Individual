@@ -182,8 +182,6 @@ section {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
-
 }
 
 .btnnn i {
@@ -298,6 +296,7 @@ section {
 
 .slide img{
     width: 800px;
+    object-fit: cover;
 }
 
 .manual-navigation{
