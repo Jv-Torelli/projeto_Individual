@@ -45,16 +45,16 @@
     </nav>
 
     <div class="container">
-      <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-        </div>
-    </div>
         <h2>login</h2>
         <form id="signupForm">
             <input type="email" placeholder="E-mail" required id="email_input">
             <input type="password" placeholder="Senha" required id="senha_input">
-            <button onclick="entrar()">Entrar</button>
+            <button type="button" onclick="entrar()">Entrar</button>
+            <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -96,25 +96,20 @@
 
 
 <script>
-
-function entrar() {
-        aguardar();
-
+    function entrar() {
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+        if (emailVar === "" || senhaVar === "") {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Preencha todos os campos.";
             return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
+        } else {
+            setTimeout(sumirMensagem, 5000);
         }
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
+        console.log("FORM LOGIN:", emailVar);
+        console.log("FORM SENHA:", senhaVar);
 
         fetch("/usuarios/autenticar", {
             method: "POST",
@@ -126,46 +121,40 @@ function entrar() {
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+            console.log("ESTOU NO THEN DO entrar()!");
 
             if (resposta.ok) {
-                console.log(resposta);
-
                 resposta.json().then(json => {
                     console.log(json);
-                    console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    mensagem_erro.innerHTML = `Login realizado com sucesso`;
+                    cardErro.style.display = "block";
 
                     setTimeout(function () {
-                        window.location = "feed.html";
-                    }, 1000); // apenas para exibir o loading
-
+                        window.location.href = "feed.html";
+                    }, 1500);
                 });
-
             } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
+                    cardErro.style.display = "block";
+                    mensagem_erro.innerHTML = texto || "Erro ao tentar fazer login.";
                 });
             }
-
         }).catch(function (erro) {
             console.log(erro);
-        })
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Erro inesperado na requisição.";
+        });
 
         return false;
     }
 
     function sumirMensagem() {
-        cardErro.style.display = "none"
+        cardErro.style.display = "none";
     }
-
-
 </script>
  

@@ -45,18 +45,18 @@
     </nav>
 
     <div class="container">
-      <div class="alerta_erro">
-        <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-        </div>
-    </div>
         <h2>Cadastro</h2>
         <form id="signupForm">
             <input type="text" placeholder="Nome" required id="nome_input">
             <input type="email" placeholder="E-mail" required id="email_input">
             <input type="date" placeholder="Data de Nascimento" required id="data_input">
             <input type="password" placeholder="Senha" required id="senha_input">
-            <button onclick="cadastrar()">Criar Conta</button>
+            <button type="button" onclick="cadastrar()">Criar Conta</button>
+            <div class="alerta_erro">
+              <div class="card_erro" id="cardErro">
+                  <span id="mensagem_erro"></span>
+              </div>
+          </div>
         </form>
     </div>
 
@@ -119,12 +119,12 @@ function cadastrar() {
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "Preencher campo que está em branco";
 
       finalizarAguardar();
       return false;
     } else {
-      setInterval(sumirMensagem, 5000);
+      setTimeout(sumirMensagem, 5000);
     }
 
     // Enviando o valor da nova input
@@ -147,8 +147,11 @@ function cadastrar() {
           cardErro.style.display = "block";
 
           mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-              window.location = "login.html";
+            "Cadastro realizado com sucesso! Indo para a tela de login...";
+            
+            setTimeout(() => {
+            window.location = "login.html";
+          }, 2000);
   
 
           limparFormulario();

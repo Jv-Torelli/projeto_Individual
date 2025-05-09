@@ -26,24 +26,26 @@ body {
   
   .alerta_erro{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
   }
   
   .card_erro {
     display: none;
-    background-color: #fff;
+    background-color: #94B4C1;
     color: black;
-    width: 230px;
-    position: fixed;
+    width: 150px;
+    position: relative;
     border-radius: 4px;
-    border: #ED145B 3px solid;
-    padding: 10px;
-    margin-right: 10%;
+    top: 20px;
+    border: #213448 2px solid;
+    padding: 8px;
   }
   
   .card_erro #mensagem_erro{
-    font-weight: 500;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    color: white;
   }
 
 nav {

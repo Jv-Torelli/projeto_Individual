@@ -21,7 +21,7 @@
                 </label>
                 <input type="file" id="input-imagem" accept="image/*" onchange="carregarImagem(event)">
                 
-                <h3 id="nome-usuario">Usuário</h3>
+                <h3 id="nome-usuario"><span id="nome_usuario">Usuário</span></h3>
                 <button onclick="window.location.href='perfil.html'">Perfil</button>
                 <button onclick="window.location.href='dashboard.html'">Dashboard</button>
                 <button class="botao-criar-post"><i class="fa-solid fa-plus"></i>Post</button>
@@ -111,6 +111,13 @@
 </body>
 
 <script>
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function carregarImagem(event) {
+            const imagemPerfil = document.getElementById('imagem-perfil');
+            imagemPerfil.src = URL.createObjectURL(event.target.files[0]);
+        }
+
     function curtirPost(icone) {
         if (icone.classList.contains("fa-regular")) {
             icone.classList.remove("fa-regular");
