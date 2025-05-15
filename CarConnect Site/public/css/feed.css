@@ -18,11 +18,11 @@ body {
     height: 700px;
 }
 
-label{
+label {
     margin: 0;
 }
 
-.imgPerfil{
+.imgPerfil {
     position: relative;
     background-color: #94B4C1;
     width: 90px;
@@ -69,8 +69,7 @@ label{
 }
 
 #nome-usuario {
-    margin-top: 35px;
-    
+    margin-top: 30px
 }
 
 .perfil button {
@@ -90,7 +89,7 @@ label{
 
 .perfil button:hover {
     background-color: #94B4C1;
-}         
+}
 
 .feed {
     flex: 1;
@@ -146,13 +145,15 @@ label{
     margin-left: 30px;
 }
 
-.icone-curtir, .icone-comentarios {
+.icone-curtir,
+.icone-comentarios {
     font-size: 24px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
 }
 
-.icone-curtir:hover, .icone-comentarios:hover {
+.icone-curtir:hover,
+.icone-comentarios:hover {
     transform: scale(1.2);
 }
 
@@ -181,7 +182,7 @@ label{
     background-color: #94B4C1;
 }
 
-.lista-comentarios{
+.lista-comentarios {
     margin-top: 10px;
     color: black;
     font-size: 16px;
@@ -212,4 +213,105 @@ label{
     color: #8e8e8e;
     font-size: 12px;
     text-transform: uppercase;
+}
+
+.botao-enviar-perfil{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 400px;
+    background-color: #547792;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+}
+
+/* modal post */
+.janela-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.conteudo-modal {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.conteudo-modal h2{
+    position: relative;
+    bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: solid 1.5px rgba(0, 0, 0, 0.5);
+}
+
+.select_foto{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.botao-fechar {
+    color: rgba(0, 0, 0, 0.5);
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-fechar:hover {
+    color: black;
+}
+
+.botao-publicar-post {
+    background-color: #547792;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: none;
+}
+
+.botao-enviar-perfil:hover,
+.botao-publicar-post:hover {
+    background-color: #94B4C1;
+}
+
+.previa-postagem {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.previa-postagem img {
+    max-width: 120%;
+    max-height: 280px;
+    margin-bottom: 12px;
+}
+
+.campo-legenda {
+    width: 100%;
+    height: 100px;
+    margin-top: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+    border: solid 2px #547792;
+    border-radius: 15px;
 }

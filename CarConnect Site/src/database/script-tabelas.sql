@@ -22,18 +22,13 @@ CREATE TABLE usuario (
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,
+    urlFoto VARCHAR(500),
     conteudo VARCHAR(200),
     dtPostagem DATE,
     fkUsuario INT,
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
 
-CREATE TABLE postagemFotos (
-    idpostagemFotos INT PRIMARY KEY AUTO_INCREMENT,
-    urlFoto VARCHAR(300),
-    fkPostagem INT,
-    FOREIGN KEY (fkPostagem) REFERENCES postagem(idpostagem)
-);
 
 CREATE TABLE curtida (
     idcurtida INT PRIMARY KEY AUTO_INCREMENT,
