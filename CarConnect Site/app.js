@@ -21,12 +21,24 @@ var usuarioRouter = require("./src/routes/usuarios");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/uploads', express.static('uploads'));
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3333',
+  credentials: true
+}));
+
+const session = require('express-session');
+
+app.use(session({
+  secret: 'segredoSuperSecretoAqui',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } 
+}));
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-
 
 app.listen(PORTA_APP, function () {
     console.log(`

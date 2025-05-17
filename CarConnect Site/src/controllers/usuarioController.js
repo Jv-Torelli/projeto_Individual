@@ -9,26 +9,31 @@ function autenticar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.autenticar(email, senha)
-            .then(function (resultadoAutenticar) {
-                if (resultadoAutenticar.length == 1) {
-                    console.log(`Tentando login com: ${email} e ${senha}`);
-                    res.json({
-                        id: resultadoAutenticar[0].id,
-                        nome: resultadoAutenticar[0].nome,  
-                        email: resultadoAutenticar[0].email
-                    });
-                    
-                } else if (resultadoAutenticar.length == 0) {
-                    res.status(403).send("Email e/ou senha inválido(s)");
-                } else {
-                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-                res.status(500).json(erro.sqlMessage);
-            });
-    }
+        
+         usuarioModel.autenticar(email, senha)
+        .then(function (resultadoAutenticar) {
+            if (resultadoAutenticar.length == 1) {
+                const usuario = resultadoAutenticar[0];
+                console.log(`Tentando login com: ${email} e ${senha}`);
+
+                // Salva id na sessão
+                req.session.usuarioId = usuario.idusuario;  // Atenção: no model, a coluna é "idusuario"
+
+                res.json({
+                    id: usuario.idusuario,
+                    nome: usuario.nome,
+                    email: usuario.email
+                });
+            } else if (resultadoAutenticar.length == 0) {
+                res.status(403).send("Email e/ou senha inválido(s)");
+            } else {
+                res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 }
 
@@ -69,7 +74,47 @@ function cadastrar(req, res) {
     }
 }
 
+
+function uploadImagemPerfil(req, res) {
+    const idusuario = req.session.usuarioId;  // pega da sessão
+    const imagem = req.file ? `/uploads/perfil/${req.file.filename}` : null;
+
+    if (!imagem || !idusuario) {
+        return res.status(400).json({ erro: "Dados insuficientes (imagem ou usuário ausente)." });
+    }
+
+    usuarioModel.uploadImagemPerfil(idusuario, imagem)
+        .then(() => res.status(200).json({ mensagem: "Imagem atualizada com sucesso." }))
+        .catch((erro) => {
+            console.error(erro);
+            res.status(500).json({ erro: "Erro ao atualizar imagem de perfil." });
+        });
+}
+
+
+function carregarImagemPerfil(req, res) {
+    // pegar o id do usuário
+    var idusuario = req.params.idusuario;
+    
+    usuarioModel.carregarImagemPerfil(idusuario)
+        .then(resultado => {
+            if (resultado.length > 0) {
+           
+                res.json({ fotoPerfil: imagem });
+            } else {
+                res.status(404).json({ mensagem: "Usuário não encontrado ou sem foto de perfil" });
+            }
+        })
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json({ mensagem: "Erro ao carregar imagem de perfil" });
+        });
+}
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    uploadImagemPerfil,
+    carregarImagemPerfil
 }
