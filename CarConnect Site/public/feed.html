@@ -244,43 +244,50 @@ if (fotoPerfil) {
             document.getElementById('botao-publicar-post').style.display = 'block';
         }
         
-        function criarNovaPostagem() {
-            if (!imagemPostArquivo) {
-                alert('Por favor, selecione uma imagem para sua postagem.');
-                return;
-            }
-            
-            const legenda = document.getElementById('campo-legenda').value;
-            
-            const formData = new FormData();
-            formData.append('imagem', imagemPostArquivo);
-            formData.append('legenda', legenda);
-            formData.append('idusuario', sessionStorage.ID_USUARIO); 
-            
-            console.log('Enviando nova postagem para o servidor...');
-            console.log('Legenda:', legenda);
-            
-            fetch('endpoint_de_upload/postagem', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Sucesso:', data);
-                
-            
-                adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
-                
-                alert('Postagem publicada com sucesso!');
-                fecharModalPost();
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Erro ao publicar postagem. Tente novamente.');
-            });
-            
-            
+         function criarNovaPostagem() {
+        if (!imagemPostArquivo) {
+            alert('Por favor, selecione uma imagem para sua postagem.');
+            return;
         }
+        
+        const legenda = document.getElementById('campo-legenda').value;
+        
+        const formData = new FormData();
+        formData.append('imagem', imagemPostArquivo);
+        formData.append('legenda', legenda);
+        formData.append('usuario_id', sessionStorage.USUARIO_ID); 
+        
+        console.log('Enviando nova postagem para o servidor...');
+        console.log('Legenda:', legenda);
+        
+        fetch('endpoint_de_upload/postagem', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Sucesso:', data);
+            
+           
+            adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
+            
+            alert('Postagem publicada com sucesso!');
+            fecharModalPost();
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao publicar postagem. Tente novamente.');
+        });
+        
+        
+
+        adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
+        
+        document.getElementById('botao-publicar-post').style.display = 'none';
+        
+        alert('Postagem publicada com sucesso!');
+        fecharModalPost();
+    }
         
         function adicionarNovaPostagemAoFeed(imagemUrl, legenda) {
             const listaPostagens = document.querySelector('.lista-postagens');
