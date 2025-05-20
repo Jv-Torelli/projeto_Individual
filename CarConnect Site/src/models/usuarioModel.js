@@ -22,26 +22,26 @@ function cadastrar(nome, email, dtNascimento, senha) {
     return database.executar(instrucaoSql);
 }
 
-function uploadImagemPerfil(idusuario, imagemPerfilArquivo) {
-  
-    var instrucaoSql = `
-    UPDATE usuario SET fotoPerfil = '${imagemPerfilArquivo}' WHERE idusuario = ${idusuario};
-`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-
+function uploadImagemPerfil(idUsuario, imagemBase64) {
+    // Insere ou atualiza a imagem em Base64 no banco de dados
+    const query = `
+        UPDATE usuario 
+        SET fotoPerfil = ? 
+        WHERE idusuario = ?
+    `;
+    
+    return database.executarComParametros(query, [imagemBase64, idUsuario]);
 }
 
-function carregarImagemPerfil(idusuario){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", idusuario)
-        
-    var instrucaoSql = `
-    SELECT idusuario, fotoPerfil FROM usuario WHERE idusuario = ${idusuario};
+function carregarImagemPerfil(idUsuario) {
+    // Busca a imagem em Base64 do banco de dados
+    const query = `
+        SELECT fotoPerfil 
+        FROM usuario 
+        WHERE idusuario = ?
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql, [idusuario]);
-
+    
+    return database.executarComParametros(query, [idUsuario]);
 }
 
 

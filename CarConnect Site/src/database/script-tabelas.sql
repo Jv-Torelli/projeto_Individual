@@ -14,11 +14,12 @@ CREATE TABLE usuario (
     nome VARCHAR(45) NOT NULL,
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
-	senha VARCHAR(8)
     bio VARCHAR(200),
-    fotoPerfil VARCHAR(500),
-    dtCriacaoConta DATE
+    fotoPerfil LONGTEXT,
+    dtCriacaoConta DATE,
+    senha VARCHAR(12)
 );
+
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,

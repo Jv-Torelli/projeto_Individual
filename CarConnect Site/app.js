@@ -11,6 +11,9 @@ var cors = require("cors");
 var path = require("path");
 var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
+const bodyParser = require('body-parser');
+
+
 
 var app = express();
 
@@ -18,10 +21,12 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.json({ limit: '10mb' })); // ou um valor maior, conforme necessário
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(cors({
   origin: 'http://localhost:3333',

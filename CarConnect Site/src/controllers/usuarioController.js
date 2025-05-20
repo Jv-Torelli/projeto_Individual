@@ -76,31 +76,37 @@ function cadastrar(req, res) {
 
 
 function uploadImagemPerfil(req, res) {
-    const idusuario = req.session.usuarioId;  // pega da sessão
-    const imagem = req.file ? `/uploads/perfil/${req.file.filename}` : null;
+    const idUsuario = req.session.usuarioId;  // pega da sessão
+    const imagemBase64 = req.body.imagemBase64; // Recebe a string base64 diretamente
 
-    if (!imagem || !idusuario) {
+    if (!imagemBase64 || !idUsuario) {
         return res.status(400).json({ erro: "Dados insuficientes (imagem ou usuário ausente)." });
     }
 
-    usuarioModel.uploadImagemPerfil(idusuario, imagem)
-        .then(() => res.status(200).json({ mensagem: "Imagem atualizada com sucesso." }))
+    // Verifica se a string base64 é válida (começando com data:image/)
+    if (!imagemBase64.startsWith('data:image/')) {
+        return res.status(400).json({ erro: "Formato de imagem inválido." });
+    }
+
+    usuarioModel.uploadImagemPerfil(idUsuario, imagemBase64)
+        .then(() => res.status(200).json({ 
+            mensagem: "Imagem atualizada com sucesso.",
+            fotoPerfil: imagemBase64  // Retorna a imagem para uso imediato
+        }))
         .catch((erro) => {
             console.error(erro);
             res.status(500).json({ erro: "Erro ao atualizar imagem de perfil." });
         });
 }
 
-
 function carregarImagemPerfil(req, res) {
     // pegar o id do usuário
-    var idusuario = req.params.idusuario;
+    var idUsuario = req.params.idUsuario;
     
-    usuarioModel.carregarImagemPerfil(idusuario)
+    usuarioModel.carregarImagemPerfil(idUsuario)
         .then(resultado => {
-            if (resultado.length > 0) {
-           
-                res.json({ fotoPerfil: imagem });
+            if (resultado.length > 0 && resultado[0].fotoPerfil) {
+                res.json({ fotoPerfil: resultado[0].fotoPerfil });
             } else {
                 res.status(404).json({ mensagem: "Usuário não encontrado ou sem foto de perfil" });
             }
@@ -110,6 +116,7 @@ function carregarImagemPerfil(req, res) {
             res.status(500).json({ mensagem: "Erro ao carregar imagem de perfil" });
         });
 }
+
 
 
 module.exports = {

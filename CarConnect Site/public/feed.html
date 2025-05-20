@@ -138,67 +138,101 @@
         let imagemPerfilArquivo = null;
         let imagemPostArquivo = null;
 
-        function carregarImagem(event) {
-            const imagemPerfil = document.getElementById('imagem-perfil');
-            imagemPerfilArquivo = event.target.files[0];
-            imagemPerfil.src = URL.createObjectURL(imagemPerfilArquivo);
-            
-            document.getElementById('botao-enviar-perfil').style.display = 'flex';
-        }
         
-    function uploadImagemPerfil() {
-        const inputImagem = document.getElementById('input-imagem');
-        if (!inputImagem) {
-            alert('Elemento input-imagem não encontrado');
-            return;
-        }
-        const imagem = inputImagem.files[0];
-        if (!imagem) {
-            alert("Selecione uma imagem antes de enviar.");
-            return;
-        }
+function converterImagemParaBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 
-        const formData = new FormData();
-        formData.append('imagem', imagem); 
+// Função para carregar imagem no elemento imagem após seleção do arquivo
+function carregarImagem(event) {
+    const imagemPerfil = document.getElementById('imagem-perfil');
+    imagemPerfilArquivo = event.target.files[0];
+    
+    if (imagemPerfilArquivo) {
+        imagemPerfil.src = URL.createObjectURL(imagemPerfilArquivo);
+        document.getElementById('botao-enviar-perfil').style.display = 'flex';
+    }
+}
 
-        fetch('/usuarios/upload/perfil', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Upload bem-sucedido:", data);
-            carregarImagemPerfil();
-            // Esconder o botão
-            document.getElementById('botao-enviar-perfil').style.display = 'none';
-})
-        .catch(error => {
-            console.error("Erro:", error);
-        });
+// Função para enviar imagem em Base64 para o servidor
+async function uploadImagemPerfil() {
+    const inputImagem = document.getElementById('input-imagem');
+    if (!inputImagem) {
+        alert('Elemento input-imagem não encontrado');
+        return;
+    }
+    
+    const imagem = inputImagem.files[0];
+    if (!imagem) {
+        alert("Selecione uma imagem antes de enviar.");
+        return;
     }
 
-    function carregarImagemPerfil() {
-    const idusuario = sessionStorage.ID_USUARIO;
+    try {
+        // Converter a imagem para Base64
+        const imagemBase64 = await converterImagemParaBase64(imagem);
+        
+        // Enviar para o servidor
+        const response = await fetch('/usuarios/upload/perfil/base64', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ imagemBase64 }),
+            credentials: 'include'
+        });
 
-    fetch(`/upload/perfil/${idusuario}`, {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Upload bem-sucedido:", data);
+        
+        // Salvar no sessionStorage para uso mais adiante
+        if (data.fotoPerfil) {
+            sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
+        }
+        
+        // Esconder o botão
+        document.getElementById('botao-enviar-perfil').style.display = 'none';
+        
+    } catch (error) {
+        console.error("Erro:", error);
+        alert("Erro ao enviar imagem. Tente novamente.");
+    }
+}
+
+// Função para carregar imagem de perfil do servidor
+function carregarImagemPerfil() {
+    const idUsuario = sessionStorage.ID_USUARIO;
+    if (!idUsuario) {
+        console.error("ID do usuário não encontrado no sessionStorage");
+        return;
+    }
+
+    fetch(`/usuarios/imagem/perfil/${idUsuario}`, {
         credentials: 'include'
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-            const imagem = data[0].fotoPerfil;
-            if (fotoPerfil) {
-                const imgElement = document.getElementById("imagem-perfil");
-                imgElement.src = imagem;
-                sessionStorage.setItem('fotoPerfil', imagem); // salvar no sessionStorage
-                document.getElementById('botao-enviar-perfil').style.display = 'none';
-            }
+        console.log("Dados recebidos da API:", data);
+        
+        if (data && data.fotoPerfil) {
+            const imgElement = document.getElementById("imagem-perfil");
+            imgElement.src = data.fotoPerfil; // Já é uma string base64 pronta para usar
+            sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
+            document.getElementById('botao-enviar-perfil').style.display = 'none';
         } else {
             console.warn('Nenhuma imagem de perfil encontrada para o usuário.');
         }
@@ -208,18 +242,21 @@
     });
 }
 
+// Ao carregar a página
 window.onload = () => {
-    imagemPerfil.innerHTML = sessionStorage.
-    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    // Definir o nome do usuário
+    if (document.getElementById('nome_usuario')) {
+        document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+    }
 
+    // Verificar se já tem uma imagem no sessionStorage
     const fotoPerfil = sessionStorage.getItem('fotoPerfil');
-if (fotoPerfil) {
-    document.getElementById('imagem-perfil').src = fotoPerfil;
-    document.getElementById('botao-enviar-perfil').style.display = 'none';
-} else {
-    carregarImagemPerfil();
-}
-
+    if (fotoPerfil) {
+        document.getElementById('imagem-perfil').src = fotoPerfil;
+        document.getElementById('botao-enviar-perfil').style.display = 'none';
+    } else {
+        carregarImagemPerfil();
+    }
 };
         
         function abrirModalPost() {
@@ -266,11 +303,9 @@ if (fotoPerfil) {
         })
         .then(response => response.json())
         .then(data => {
+            
             console.log('Sucesso:', data);
-            
-           
             adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
-            
             alert('Postagem publicada com sucesso!');
             fecharModalPost();
         })
