@@ -19,13 +19,6 @@ CREATE TABLE postagem (
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
 
-CREATE TABLE postagemFotos (
-    idpostagemFotos INT PRIMARY KEY AUTO_INCREMENT,
-    urlFoto VARCHAR(300),
-    fkPostagem INT,
-    FOREIGN KEY (fkPostagem) REFERENCES postagem(idpostagem)
-);
-
 CREATE TABLE curtida (
     idcurtida INT PRIMARY KEY AUTO_INCREMENT,
     fkPostagem INT,
