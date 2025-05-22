@@ -242,14 +242,14 @@ function carregarImagemPerfil() {
     });
 }
 
-// Ao carregar a página
+
 window.onload = () => {
-    // Definir o nome do usuário
+    
     if (document.getElementById('nome_usuario')) {
         document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
     }
 
-    // Verificar se já tem uma imagem no sessionStorage
+    
     const fotoPerfil = sessionStorage.getItem('fotoPerfil');
     if (fotoPerfil) {
         document.getElementById('imagem-perfil').src = fotoPerfil;
@@ -292,12 +292,12 @@ window.onload = () => {
         const formData = new FormData();
         formData.append('imagem', imagemPostArquivo);
         formData.append('legenda', legenda);
-        formData.append('usuario_id', sessionStorage.USUARIO_ID); 
+        formData.append('idusuario', sessionStorage.ID_USUARIO); 
         
         console.log('Enviando nova postagem para o servidor...');
         console.log('Legenda:', legenda);
         
-        fetch('endpoint_de_upload/postagem', {
+        fetch('', {
             method: 'POST',
             body: formData
         })
@@ -327,11 +327,11 @@ window.onload = () => {
         function adicionarNovaPostagemAoFeed(imagemUrl, legenda) {
             const listaPostagens = document.querySelector('.lista-postagens');
             
-            // Criar nova posta com a imagem e legenda fornecidas
+            
             const novaPostagem = document.createElement('div');
             novaPostagem.className = 'postagem';
             
-            // Construir o HTML da nova postagem
+           
             novaPostagem.innerHTML = `
                 <div class="cabecalho-postagem">
                     <img src="${document.getElementById('imagem-perfil').src || './assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg'}" alt="Foto do Usuário" class="foto-usuario-postagem">
@@ -356,7 +356,6 @@ window.onload = () => {
                 <div class="tempo-postagem">agora mesmo</div>
             `;
             
-            // Inserir a nova postagem no início do feed
             listaPostagens.insertBefore(novaPostagem, listaPostagens.firstChild);
         }
 

@@ -23,7 +23,7 @@ function cadastrar(nome, email, dtNascimento, senha) {
 }
 
 function uploadImagemPerfil(idUsuario, imagemBase64) {
-    // Insere ou atualiza a imagem em Base64 no banco de dados
+   
     const query = `
         UPDATE usuario 
         SET fotoPerfil = ? 
@@ -34,7 +34,7 @@ function uploadImagemPerfil(idUsuario, imagemBase64) {
 }
 
 function carregarImagemPerfil(idUsuario) {
-    // Busca a imagem em Base64 do banco de dados
+ 
     const query = `
         SELECT fotoPerfil 
         FROM usuario 

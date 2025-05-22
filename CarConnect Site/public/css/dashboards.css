@@ -1,7 +1,7 @@
  body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #ECEFCA;
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #213448;
       color: #ECEFCA;
       max-width: 1500px;
     }
@@ -27,6 +27,12 @@
       background-color: #213448;
     }
 
+    .nome_user{
+      font-size: 18px;
+      color: #ECEFCA;
+      font-weight: 500;
+    }
+
     .dashboard-container {
       display: flex;
       flex-direction: column;
@@ -46,7 +52,7 @@
       text-align: center;
     }
     .grafico-container {
-      background-color: #94B4C1;
+      background-color: #ECEFCA;
       color: black;
       padding: 15px;
       border-radius: 10px;
