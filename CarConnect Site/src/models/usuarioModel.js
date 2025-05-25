@@ -36,9 +36,7 @@ function uploadImagemPerfil(idUsuario, imagemBase64) {
 function carregarImagemPerfil(idUsuario) {
  
     const query = `
-        SELECT fotoPerfil 
-        FROM usuario 
-        WHERE idusuario = ?
+        SELECT idusuario, fotoPerfil FROM usuario WHERE idusuario = ?
     `;
     
     return database.executarComParametros(query, [idUsuario]);

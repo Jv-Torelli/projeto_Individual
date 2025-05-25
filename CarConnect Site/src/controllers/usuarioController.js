@@ -16,7 +16,6 @@ function autenticar(req, res) {
                 const usuario = resultadoAutenticar[0];
                 console.log(`Tentando login com: ${email} e ${senha}`);
 
-                // Salva id na sessão
                 req.session.usuarioId = usuario.idusuario;  // Atenção: no model, a coluna é "idusuario"
 
                 res.json({

@@ -1,400 +1,609 @@
-    <!DOCTYPE html>
-    <html lang="pt">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Feed Social</title>
-        <link rel="stylesheet" href="./css/feed.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="pt">
 
-        <div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Social</title>
+    <link rel="stylesheet" href="./css/feed.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-            <nav class="barra-lateral">
-                <div class="perfil">
-                    <label for="input-imagem">
-                        <div class="imgPerfil">
-                            <img id="imagem-perfil">
-                            <div class="icone-upload"><h3><i class="fas fa-camera"></i></h3></div>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav class="barra-lateral">
+            <div class="perfil">
+                <label for="input-imagem">
+                    <div class="imgPerfil">
+                        <img id="imagem-perfil">
+                        <div class="icone-upload">
+                            <h3><i class="fas fa-camera"></i></h3>
                         </div>
-                    </label>
-                    <input type="file" id="input-imagem" accept="image/*" onchange="carregarImagem(event)">
-                    <button id="botao-enviar-perfil" class="botao-enviar-perfil" onclick="uploadImagemPerfil()">Enviar Foto</button>
-                    
-                    <h3 id="nome-usuario"><span id="nome_usuario">Usuário</span></h3>
-                    <button onclick="window.location.href='perfil.html'">Perfil</button>
-                    <button onclick="window.location.href='./dashboard/dashboard.html'">Dashboard</button>
-                    <button class="botao-criar-post" onclick="abrirModalPost()"><i class="fa-solid fa-plus"></i>Post</button>
-                    
+                    </div>
+                </label>
+                <input type="file" id="input-imagem" accept="image/*" onchange="carregarImagem(event)">
+                <button id="botao-enviar-perfil" class="botao-enviar-perfil" onclick="uploadImagemPerfil()">Enviar
+                    Foto</button>
+
+                <h3 id="nome-usuario"><span id="nome_usuario">Usuário</span></h3>
+                <button onclick="window.location.href='perfil.html'">Perfil</button>
+                <button onclick="window.location.href='./dashboard/dashboard.html'">Dashboard</button>
+                <button class="botao-criar-post" onclick="abrirModalPost()"><i
+                        class="fa-solid fa-plus"></i>Post</button>
+
+            </div>
+        </nav>
+
+        <div class="feed">
+            <div class="lista-postagens">
+                <!-- Postagem 1 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário"
+                            class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    </div>
+                    <img src="./assets/img/shelby.jpg" alt="Imagem da Postagem 1" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                    </div>
+                    <div class="info-curtidas">256 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Este Shelby é demais!!!! #Carros #velozesefuriosos
+                    </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 14 comentários</div>
+                    <div class="tempo-postagem">há 2 horas</div>
                 </div>
-            </nav>
 
-            <div class="feed">
-                <div class="lista-postagens">
-                    <!-- Postagem 1 -->
-                    <div class="postagem">
-                        <div class="cabecalho-postagem">
-                            <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                            <span class="nome-usuario-postagem">Jv_Torelli7</span>
-                        </div>
-                        <img src="./assets/img/shelby.jpg" alt="Imagem da Postagem 1" class="imagem-postagem">
-                        <div class="acoes-postagem">
-                            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                            <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                        </div>
-                        <div class="info-curtidas">256 curtidas</div>
-                        <div class="legenda-postagem">
-                            <span class="nome-usuario-legenda">Jv_Torelli7</span>
-                            Este Shelby é demais!!!! #Carros #velozesefuriosos
-                        </div>
-                        <div class="comentarios" style="display: none;">
-                            <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                            <button onclick="enviarComentario(this)">Enviar</button>
-                            <div class="lista-comentarios"></div>
-                        </div>
-                        <div class="comentarios">Ver todos os 14 comentários</div>
-                        <div class="tempo-postagem">há 2 horas</div>
+                <!-- Postagem 2 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário"
+                            class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
                     </div>
-                    
-                    <!-- Postagem 2 -->
-                    <div class="postagem">
-                        <div class="cabecalho-postagem">
-                            <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                            <span class="nome-usuario-postagem">Jv_Torelli7</span>
-                        </div>
-                        <img src="./assets/img/nivus.jpg" alt="Imagem da Postagem 2" class="imagem-postagem">
-                        <div class="acoes-postagem">
-                            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                            <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                        </div>
-                        <div class="info-curtidas">189 curtidas</div>
-                        <div class="legenda-postagem">
-                            <span class="nome-usuario-legenda">Jv_Torelli7</span>
-                            Esse nivus é animal #volks
-                        </div>
-                        <div class="comentarios" style="display: none;">
-                            <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                            <button onclick="enviarComentario(this)">Enviar</button>
-                            <div class="lista-comentarios"></div>
-                        </div>
-                        <div class="comentarios">Ver todos os 8 comentários</div>
-                        <div class="tempo-postagem">há 1 dia</div>
+                    <img src="./assets/img/nivus.jpg" alt="Imagem da Postagem 2" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
                     </div>
-                    
-                    <!-- Postagem 3 -->
-                    <div class="postagem">
-                        <div class="cabecalho-postagem">
-                            <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                            <span class="nome-usuario-postagem">Jv_Torelli7</span>
-                        </div>
-                        <img src="./assets/img/lancer.webp" alt="Imagem da Postagem 3" class="imagem-postagem">
-                        <div class="acoes-postagem">
-                            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                            <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                        </div>
-                        <div class="info-curtidas">324 curtidas</div>
-                        <div class="legenda-postagem">
-                            <span class="nome-usuario-legenda">Jv_Torelli7</span>
-                            Este evento foi incrível!!! #momentos #memórias
-                        </div>
-                        <div class="comentarios" style="display: none;">
-                            <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                            <button onclick="enviarComentario(this)">Enviar</button>
-                            <div class="lista-comentarios"></div>
-                        </div>
-                        <div class="comentarios">Ver todos os 21 comentários</div>
-                        <div class="tempo-postagem">há 3 dias</div>
+                    <div class="info-curtidas">189 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Esse nivus é animal #volks
                     </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 8 comentários</div>
+                    <div class="tempo-postagem">há 1 dia</div>
+                </div>
+
+                <!-- Postagem 3 -->
+                <div class="postagem">
+                    <div class="cabecalho-postagem">
+                        <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário"
+                            class="foto-usuario-postagem">
+                        <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    </div>
+                    <img src="./assets/img/lancer.webp" alt="Imagem da Postagem 3" class="imagem-postagem">
+                    <div class="acoes-postagem">
+                        <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                        <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+                    </div>
+                    <div class="info-curtidas">324 curtidas</div>
+                    <div class="legenda-postagem">
+                        <span class="nome-usuario-legenda">Jv_Torelli7</span>
+                        Este evento foi incrível!!! #momentos #memórias
+                    </div>
+                    <div class="comentarios" style="display: none;">
+                        <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                        <button onclick="enviarComentario(this)">Enviar</button>
+                        <div class="lista-comentarios"></div>
+                    </div>
+                    <div class="comentarios">Ver todos os 21 comentários</div>
+                    <div class="tempo-postagem">há 3 dias</div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Modal para criar nova postagem -->
-        <div id="janela-modal-post" class="janela-modal">
-            <div class="conteudo-modal">
-                <span class="botao-fechar" onclick="fecharModalPost()">&times;</span>
-                <h2>Crie seu novo Post!</h2>
-                <label for="input-post-imagem">Selecione a imagem de sua postagem:</label>
-                <input type="file" id="input-post-imagem" accept="image/*" onchange="carregarImagemPost(event)">
-                
-                <div class="previa-postagem">
-                    <img id="previa-imagem-post" style="display: none;">
-                </div>
-                
-                <textarea class="campo-legenda" id="campo-legenda" placeholder="Escreva a legenda de sua postagem..."></textarea>
-                
-                <button id="botao-publicar-post" class="botao-publicar-post" onclick="criarNovaPostagem()">Publicar</button>
+    <!-- Modal para criar nova postagem -->
+    <div id="janela-modal-post" class="janela-modal">
+        <div class="conteudo-modal">
+            <span class="botao-fechar" onclick="fecharModalPost()">&times;</span>
+            <h2>Crie seu novo Post!</h2>
+            <label for="input-post-imagem">Selecione a imagem de sua postagem:</label>
+            <input type="file" id="input-post-imagem" accept="image/*" onchange="carregarImagemPost(event)">
+
+            <div class="previa-postagem">
+                <img id="previa-imagem-post" style="display: none;">
             </div>
+
+            <textarea class="campo-legenda" id="campo-legenda"
+                placeholder="Escreva a legenda de sua postagem..."></textarea>
+
+            <button id="botao-publicar-post" class="botao-publicar-post"
+                onclick="criarNovaPostagemBase64()">Publicar</button>
         </div>
+    </div>
 
-    </body>
-    </html>
+</body>
 
-    <script>
-        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-        
-        let imagemPerfilArquivo = null;
-        let imagemPostArquivo = null;
+</html>
 
-        
-function converterImagemParaBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
+<script>
+    let imagemPerfilArquivo = null;
+    let imagemPostArquivo = null;
+    let fotoPerfilCarregada = false; // Flag para controlar se já carregou a foto
 
-// Função para carregar imagem no elemento imagem após seleção do arquivo
-function carregarImagem(event) {
-    const imagemPerfil = document.getElementById('imagem-perfil');
-    imagemPerfilArquivo = event.target.files[0];
-    
-    if (imagemPerfilArquivo) {
-        imagemPerfil.src = URL.createObjectURL(imagemPerfilArquivo);
-        document.getElementById('botao-enviar-perfil').style.display = 'flex';
-    }
-}
+    // Inicializar página
+    window.onload = function () {
+        inicializarPagina();
+    };
 
-// Função para enviar imagem em Base64 para o servidor
-async function uploadImagemPerfil() {
-    const inputImagem = document.getElementById('input-imagem');
-    if (!inputImagem) {
-        alert('Elemento input-imagem não encontrado');
-        return;
-    }
-    
-    const imagem = inputImagem.files[0];
-    if (!imagem) {
-        alert("Selecione uma imagem antes de enviar.");
-        return;
-    }
-
-    try {
-        // Converter a imagem para Base64
-        const imagemBase64 = await converterImagemParaBase64(imagem);
-        
-        // Enviar para o servidor
-        const response = await fetch('/usuarios/upload/perfil/base64', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ imagemBase64 }),
-            credentials: 'include'
+    // Função para inicializar a página
+    function inicializarPagina() {
+        // Debug - verificar sessionStorage
+        console.log('SessionStorage contents:', {
+            ID_USUARIO: sessionStorage.ID_USUARIO,
+            NOME_USUARIO: sessionStorage.NOME_USUARIO
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Definir nome do usuário
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
         }
 
-        const data = await response.json();
-        console.log("Upload bem-sucedido:", data);
-        
-        // Salvar no sessionStorage para uso mais adiante
-        if (data.fotoPerfil) {
-            sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
-        }
-        
-        // Esconder o botão
-        document.getElementById('botao-enviar-perfil').style.display = 'none';
-        
-    } catch (error) {
-        console.error("Erro:", error);
-        alert("Erro ao enviar imagem. Tente novamente.");
-    }
-}
+        // Limpar qualquer foto de perfil anterior e carregar a do usuário atual
+        limparFotoPerfilAnterior();
 
-// Função para carregar imagem de perfil do servidor
-function carregarImagemPerfil() {
-    const idUsuario = sessionStorage.ID_USUARIO;
-    if (!idUsuario) {
-        console.error("ID do usuário não encontrado no sessionStorage");
-        return;
+        // Aguardar um pouco antes de carregar a imagem para garantir que tudo está pronto
+        setTimeout(() => {
+            carregarImagemPerfil();
+        }, 100);
     }
 
-    fetch(`/usuarios/imagem/perfil/${idUsuario}`, {
-        credentials: 'include'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro HTTP! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Dados recebidos da API:", data);
-        
-        if (data && data.fotoPerfil) {
-            const imgElement = document.getElementById("imagem-perfil");
-            imgElement.src = data.fotoPerfil; // Já é uma string base64 pronta para usar
-            sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
-            document.getElementById('botao-enviar-perfil').style.display = 'none';
-        } else {
-            console.warn('Nenhuma imagem de perfil encontrada para o usuário.');
-        }
-    })
-    .catch(error => {
-        console.error("Erro ao carregar imagem:", error);
-    });
-}
+    // Função para limpar foto de perfil anterior
+    function limparFotoPerfilAnterior() {
+        // Remove a foto do sessionStorage para evitar conflitos
+        sessionStorage.removeItem('fotoPerfil');
 
+        // Define imagem padrão
+        document.getElementById('imagem-perfil').src = './assets/img/avatarPerfil.jpg';
 
-window.onload = () => {
-    
-    if (document.getElementById('nome_usuario')) {
-        document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+        // Reseta flag
+        fotoPerfilCarregada = false;
     }
 
-    
-    const fotoPerfil = sessionStorage.getItem('fotoPerfil');
-    if (fotoPerfil) {
-        document.getElementById('imagem-perfil').src = fotoPerfil;
-        document.getElementById('botao-enviar-perfil').style.display = 'none';
-    } else {
-        carregarImagemPerfil();
+    // Função para converter imagem para Base64
+    function converterImagemParaBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
     }
-};
-        
-        function abrirModalPost() {
-            document.getElementById('janela-modal-post').style.display = 'block';
+
+    // Função para carregar imagem no elemento após seleção
+    function carregarImagem(event) {
+        const imagemPerfil = document.getElementById('imagem-perfil');
+        imagemPerfilArquivo = event.target.files[0];
+
+        if (imagemPerfilArquivo) {
+            imagemPerfil.src = URL.createObjectURL(imagemPerfilArquivo);
+            document.getElementById('botao-enviar-perfil').style.display = 'flex';
         }
-        
-        function fecharModalPost() {
-            document.getElementById('janela-modal-post').style.display = 'none';
-            document.getElementById('input-post-imagem').value = '';
-            document.getElementById('previa-imagem-post').style.display = 'none';
-            document.getElementById('campo-legenda').value = '';
-            document.getElementById('botao-publicar-post').style.display = 'none';
-            imagemPostArquivo = null;
-        }
-        
-        function carregarImagemPost(event) {
-            const previaImagem = document.getElementById('previa-imagem-post');
-            imagemPostArquivo = event.target.files[0];
-            previaImagem.src = URL.createObjectURL(imagemPostArquivo);
-            previaImagem.style.display = 'block';
-            
-            document.getElementById('botao-publicar-post').style.display = 'block';
-        }
-        
-         function criarNovaPostagem() {
-        if (!imagemPostArquivo) {
-            alert('Por favor, selecione uma imagem para sua postagem.');
+    }
+
+    // Função para fazer upload da imagem de perfil
+    async function uploadImagemPerfil() {
+        const inputImagem = document.getElementById('input-imagem');
+        if (!inputImagem) {
+            alert('Elemento input-imagem não encontrado');
             return;
         }
-        
-        const legenda = document.getElementById('campo-legenda').value;
-        
-        const formData = new FormData();
-        formData.append('imagem', imagemPostArquivo);
-        formData.append('legenda', legenda);
-        formData.append('idusuario', sessionStorage.ID_USUARIO); 
-        
-        console.log('Enviando nova postagem para o servidor...');
-        console.log('Legenda:', legenda);
-        
-        fetch('', {
-            method: 'POST',
-            body: formData
+
+        const imagem = inputImagem.files[0];
+        if (!imagem) {
+            alert("Selecione uma imagem antes de enviar.");
+            return;
+        }
+
+        // Verificar se o usuário está logado
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            alert('Erro: Usuário não identificado. Faça login novamente.');
+            return;
+        }
+
+        try {
+            // Converter a imagem para Base64
+            const imagemBase64 = await converterImagemParaBase64(imagem);
+
+            // Enviar para o servidor com o ID do usuário
+            const response = await fetch('/usuarios/upload/perfil/base64', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    imagemBase64: imagemBase64,
+                    idUsuario: idUsuario // Incluir ID do usuário
+                }),
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Upload bem-sucedido:", data);
+
+            // Esconder o botão
+            document.getElementById('botao-enviar-perfil').style.display = 'none';
+
+            // Marcar que a foto foi carregada
+            fotoPerfilCarregada = true;
+
+            alert('Foto de perfil atualizada com sucesso!');
+
+        } catch (error) {
+            console.error("Erro:", error);
+            alert("Erro ao enviar imagem. Tente novamente.");
+        }
+    }
+
+    // Função para carregar imagem de perfil do servidor
+    function carregarImagemPerfil() {
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            console.error("ID do usuário não encontrado no sessionStorage");
+            document.getElementById("imagem-perfil").src = './assets/img/avatarPerfil.jpg';
+            return;
+        }
+
+        // Se já carregou a foto, não carrega novamente
+        if (fotoPerfilCarregada) {
+            return;
+        }
+
+        console.log(`Carregando imagem de perfil para usuário ID: ${idUsuario}`);
+
+        fetch(`/usuarios/imagem/perfil/${idUsuario}`, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then(response => response.json())
-        .then(data => {
-            
-            console.log('Sucesso:', data);
-            adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
+            .then(response => {
+                console.log(`Response status: ${response.status}`);
+                if (!response.ok) {
+                    console.warn(`Imagem de perfil não encontrada para usuário ${idUsuario}, usando padrão.`);
+                    throw new Error(`Erro HTTP! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos:', data);
+                if (data && data.fotoPerfil) {
+                    console.log('Definindo foto de perfil do usuário');
+                    document.getElementById("imagem-perfil").src = data.fotoPerfil;
+                    document.getElementById('botao-enviar-perfil').style.display = 'none';
+                    fotoPerfilCarregada = true;
+                } else {
+                    console.log('Dados de foto não encontrados, usando padrão');
+                    document.getElementById("imagem-perfil").src = './assets/img/avatarPerfil.jpg';
+                    fotoPerfilCarregada = true;
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao carregar imagem:", error);
+                document.getElementById("imagem-perfil").src = './assets/img/avatarPerfil.jpg';
+                fotoPerfilCarregada = true;
+            });
+    }
+
+    // Função para obter foto de perfil atual (para usar nos posts)
+    function obterFotoPerfilAtual() {
+        const imgElement = document.getElementById('imagem-perfil');
+        return imgElement.src || './assets/img/avatarPerfil.jpg';
+    }
+
+    // Funções do modal de post
+    function abrirModalPost() {
+        console.log('Abrindo modal de post');
+        document.getElementById('janela-modal-post').style.display = 'block';
+    }
+
+    function fecharModalPost() {
+        console.log('Fechando modal de post');
+        document.getElementById('janela-modal-post').style.display = 'none';
+        document.getElementById('input-post-imagem').value = '';
+        document.getElementById('previa-imagem-post').style.display = 'none';
+        document.getElementById('previa-imagem-post').src = '';
+        document.getElementById('campo-legenda').value = '';
+        document.getElementById('botao-publicar-post').style.display = 'none';
+        imagemPostArquivo = null;
+
+        // Limpar URLs criadas para evitar vazamento de memória
+        const previaImg = document.getElementById('previa-imagem-post');
+        if (previaImg.src && previaImg.src.startsWith('blob:')) {
+            URL.revokeObjectURL(previaImg.src);
+        }
+    }
+
+    function carregarImagemPost(event) {
+        console.log('Carregando imagem do post');
+        const previaImagem = document.getElementById('previa-imagem-post');
+        const arquivo = event.target.files[0];
+
+        if (!arquivo) {
+            console.log('Nenhum arquivo selecionado');
+            return;
+        }
+
+        // Validar tipo de arquivo
+        const tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!tiposPermitidos.includes(arquivo.type)) {
+            alert('Formato de imagem não suportado. Use JPEG, PNG, GIF ou WebP.');
+            return;
+        }
+
+        // Validar tamanho do arquivo
+        const tamanhoMaximo = 15 * 1024 * 1024; // 15MB
+        if (arquivo.size > tamanhoMaximo) {
+            alert('A imagem é muito grande. O tamanho máximo é 15MB.');
+            return;
+        }
+
+        imagemPostArquivo = arquivo;
+        console.log('Arquivo selecionado:', arquivo.name, 'Tamanho:', arquivo.size);
+
+        try {
+            // Limpar URL anterior se existir
+            if (previaImagem.src && previaImagem.src.startsWith('blob:')) {
+                URL.revokeObjectURL(previaImagem.src);
+            }
+
+            // Criar nova URL para preview
+            const urlPrevia = URL.createObjectURL(arquivo);
+            previaImagem.src = urlPrevia;
+            previaImagem.style.display = 'block';
+            document.getElementById('botao-publicar-post').style.display = 'block';
+
+            console.log('Preview da imagem carregado com sucesso');
+        } catch (error) {
+            console.error('Erro ao carregar preview da imagem:', error);
+            alert('Erro ao carregar preview da imagem. Tente novamente.');
+        }
+    }
+
+    // Função para validar dados do post
+    function validarDadosPost() {
+        console.log('Validando dados do post');
+
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            console.error('ID do usuário não encontrado');
+            alert('Erro: Usuário não identificado. Faça login novamente.');
+            return false;
+        }
+
+        if (!imagemPostArquivo) {
+            console.error('Nenhuma imagem selecionada para o post');
+            alert('Por favor, selecione uma imagem para sua postagem.');
+            return false;
+        }
+
+        const tamanhoMaximo = 15 * 1024 * 1024;
+        if (imagemPostArquivo.size > tamanhoMaximo) {
+            console.error('Imagem muito grande:', imagemPostArquivo.size);
+            alert('A imagem é muito grande. O tamanho máximo é 15MB.');
+            return false;
+        }
+
+        // Validar tipo do arquivo
+        const tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!tiposPermitidos.includes(imagemPostArquivo.type)) {
+            console.error('Tipo de arquivo não suportado:', imagemPostArquivo.type);
+            alert('Formato de imagem não suportado. Use JPEG, PNG, GIF ou WebP.');
+            return false;
+        }
+
+        console.log('Validação do post bem-sucedida');
+        return true;
+    }
+
+    // Função para criar nova postagem
+    async function criarNovaPostagemBase64() {
+        console.log('Iniciando criação de nova postagem');
+
+        if (!validarDadosPost()) {
+            return;
+        }
+
+        const legenda = document.getElementById('campo-legenda').value.trim();
+        console.log('Legenda:', legenda);
+
+        // Desabilitar botão durante o upload
+        const botaoPublicar = document.getElementById('botao-publicar-post');
+        const textoOriginal = botaoPublicar.textContent;
+        botaoPublicar.disabled = true;
+        botaoPublicar.textContent = 'Enviando...';
+
+        try {
+            console.log('Convertendo imagem para Base64...');
+            const imagemBase64 = await converterImagemParaBase64(imagemPostArquivo);
+            console.log('Imagem convertida para Base64 com sucesso');
+
+            const idUsuario = sessionStorage.ID_USUARIO;
+            if (!idUsuario || isNaN(idUsuario)) {
+                console.error('ID inválido:', idUsuario);
+                alert('Erro: Sessão inválida. Faça login novamente.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const dadosPost = {
+                imagemBase64: imagemBase64,
+                legenda: legenda,
+                idUsuario: Number(sessionStorage.ID_USUARIO)
+            };
+
+            console.log('Dados COMPLETOS sendo enviados:', JSON.stringify(dadosPost, null, 2));
+
+            const response = await fetch('/api/posts/base64', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dadosPost),
+                credentials: 'include'
+            });
+
+            console.log('Response status:', response.status);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Erro do servidor:', errorText);
+                throw new Error(`Erro HTTP! status: ${response.status} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            console.log('Resposta do servidor:', data);
+
+            const urlImagemPost = URL.createObjectURL(imagemPostArquivo);
+            adicionarNovaPostagemAoFeed(urlImagemPost, legenda);
+
             alert('Postagem publicada com sucesso!');
             fecharModalPost();
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao publicar postagem. Tente novamente.');
-        });
-        
-        
 
-        adicionarNovaPostagemAoFeed(URL.createObjectURL(imagemPostArquivo), legenda);
-        
-        document.getElementById('botao-publicar-post').style.display = 'none';
-        
-        alert('Postagem publicada com sucesso!');
-        fecharModalPost();
+        } catch (error) {
+            console.error('Erro completo:', error);
+
+            let mensagemErro = "Erro ao publicar postagem";
+            if (error.message.includes('fkUsuario')) {
+                mensagemErro = "Erro de autenticação. Por favor, faça login novamente.";
+            } else if (error.message.includes('tamanho')) {
+                mensagemErro = "Imagem muito grande (máximo 15MB)";
+            }
+
+            alert(mensagemErro);
+            if (error.message.includes('fkUsuario')) {
+                window.location.href = 'login.html';
+            }
+        } finally {
+            botaoPublicar.disabled = false;
+            botaoPublicar.textContent = textoOriginal;
+        }
     }
-        
-        function adicionarNovaPostagemAoFeed(imagemUrl, legenda) {
-            const listaPostagens = document.querySelector('.lista-postagens');
-            
-            
-            const novaPostagem = document.createElement('div');
-            novaPostagem.className = 'postagem';
-            
-           
-            novaPostagem.innerHTML = `
-                <div class="cabecalho-postagem">
-                    <img src="${document.getElementById('imagem-perfil').src || './assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg'}" alt="Foto do Usuário" class="foto-usuario-postagem">
-                    <span class="nome-usuario-postagem">${sessionStorage.NOME_USUARIO}</span>
-                </div>
-                <img src="${imagemUrl}" alt="Nova Postagem" class="imagem-postagem">
-                <div class="acoes-postagem">
-                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                </div>
-                <div class="info-curtidas">0 curtidas</div>
-                <div class="legenda-postagem">
-                    <span class="nome-usuario-legenda">${sessionStorage.NOME_USUARIO}</span>
-                    ${legenda}
-                </div>
-                <div class="comentarios" style="display: none;">
-                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                    <button onclick="enviarComentario(this)">Enviar</button>
-                    <div class="lista-comentarios"></div>
-                </div>
-                <div class="comentarios">Ver todos os 0 comentários</div>
-                <div class="tempo-postagem">agora mesmo</div>
-            `;
-            
-            listaPostagens.insertBefore(novaPostagem, listaPostagens.firstChild);
+
+    function adicionarNovaPostagemAoFeed(imagemUrl, legenda) {
+        console.log('Adicionando nova postagem ao feed');
+
+        const listaPostagens = document.querySelector('.lista-postagens');
+        if (!listaPostagens) {
+            console.error('Lista de postagens não encontrada');
+            return;
         }
 
-        function curtirPost(icone) {
-            if (icone.classList.contains("fa-regular")) {
-                icone.classList.remove("fa-regular");
-                icone.classList.add("fa-solid");
-                icone.style.color = "red";
-                
-                // Atualizar contador de curtidas (aumentar)
-                const infoCurtidas = icone.parentElement.nextElementSibling;
-                let numCurtidas = parseInt(infoCurtidas.textContent);
-                infoCurtidas.textContent = (numCurtidas + 1) + " curtidas";
-            } else {
-                icone.classList.remove("fa-solid");
-                icone.classList.add("fa-regular");
-                icone.style.color = "black";
-                
-                // Atualizar contador de curtidas (diminuir)
-                const infoCurtidas = icone.parentElement.nextElementSibling;
-                let numCurtidas = parseInt(infoCurtidas.textContent);
-                infoCurtidas.textContent = (numCurtidas - 1) + " curtidas";
-            }
-        }
+        const novaPostagem = document.createElement('div');
+        novaPostagem.className = 'postagem';
 
-        function toggleComentarios(icone) {
-            const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
-            comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
-        }
+        const fotoPerfilSrc = obterFotoPerfilAtual();
+        const nomeUsuario = sessionStorage.NOME_USUARIO || 'Usuário';
 
-        function enviarComentario(botao) {
-            const divComentarios = botao.nextElementSibling;
-            const inputComentario = botao.previousElementSibling;
+        console.log('Foto de perfil para post:', fotoPerfilSrc);
+        console.log('Nome do usuário:', nomeUsuario);
 
-            if (inputComentario.value.trim() !== "") {
-                const novoComentario = document.createElement("p");
-                novoComentario.innerHTML = `<strong>${sessionStorage.NOME_USUARIO}</strong>: ${inputComentario.value}`;
-                divComentarios.appendChild(novoComentario);
-                inputComentario.value = "";
-            }
+        novaPostagem.innerHTML = `
+            <div class="cabecalho-postagem">
+                <img src="${fotoPerfilSrc}" alt="Foto do Usuário" class="foto-usuario-postagem">
+                <span class="nome-usuario-postagem">${nomeUsuario}</span>
+            </div>
+            <img src="${imagemUrl}" alt="Nova Postagem" class="imagem-postagem">
+            <div class="acoes-postagem">
+                <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+                <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+            </div>
+            <div class="info-curtidas">0 curtidas</div>
+            <div class="legenda-postagem">
+                <span class="nome-usuario-legenda">${nomeUsuario}</span>
+                ${legenda}
+            </div>
+            <div class="comentarios" style="display: none;">
+                <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
+                <button onclick="enviarComentario(this)">Enviar</button>
+                <div class="lista-comentarios"></div>
+            </div>
+            <div class="comentarios">Ver todos os 0 comentários</div>
+            <div class="tempo-postagem">agora mesmo</div>
+        `;
+
+        listaPostagens.insertBefore(novaPostagem, listaPostagens.firstChild);
+        console.log('Nova postagem adicionada ao feed com sucesso');
+
+        novaPostagem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function curtirPost(icone) {
+        if (icone.classList.contains("fa-regular")) {
+            icone.classList.remove("fa-regular");
+            icone.classList.add("fa-solid");
+            icone.style.color = "red";
+
+            const infoCurtidas = icone.parentElement.nextElementSibling;
+            let numCurtidas = parseInt(infoCurtidas.textContent);
+            infoCurtidas.textContent = (numCurtidas + 1) + " curtidas";
+        } else {
+            icone.classList.remove("fa-solid");
+            icone.classList.add("fa-regular");
+            icone.style.color = "black";
+
+            const infoCurtidas = icone.parentElement.nextElementSibling;
+            let numCurtidas = parseInt(infoCurtidas.textContent);
+            infoCurtidas.textContent = (numCurtidas - 1) + " curtidas";
         }
-    </script>
+    }
+
+    function toggleComentarios(icone) {
+        const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+        comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function enviarComentario(botao) {
+        const divComentarios = botao.nextElementSibling;
+        const inputComentario = botao.previousElementSibling;
+
+        if (inputComentario.value.trim() !== "") {
+            const novoComentario = document.createElement("p");
+            novoComentario.innerHTML = `<strong>${sessionStorage.NOME_USUARIO}</strong>: ${inputComentario.value}`;
+            divComentarios.appendChild(novoComentario);
+            inputComentario.value = "";
+        }
+    }
+
+    function limparDadosUsuario() {
+        sessionStorage.removeItem('fotoPerfil');
+        sessionStorage.removeItem('NOME_USUARIO');
+        sessionStorage.removeItem('ID_USUARIO');
+        fotoPerfilCarregada = false;
+    }
+
+</script>

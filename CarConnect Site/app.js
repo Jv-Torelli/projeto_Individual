@@ -19,14 +19,17 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+var feedRouter = require('./src/routes/feed');
 
 
-app.use(express.json({ limit: '10mb' }));
+
+app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/uploads', express.static('uploads'));
-app.use(bodyParser.json({ limit: '10mb' })); // ou um valor maior, conforme necessário
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(bodyParser.json({ limit: '15mb' })); 
+app.use(bodyParser.urlencoded({ limit: '15mb', extended: true }));
+app.use('/api/posts', feedRouter);
 
 app.use(cors({
   origin: 'http://localhost:3333',

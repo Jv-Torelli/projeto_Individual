@@ -23,7 +23,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,
-    urlFoto VARCHAR(500),
+    urlFoto LONGTEXT,
     conteudo VARCHAR(200),
     dtPostagem DATE,
     fkUsuario INT,
