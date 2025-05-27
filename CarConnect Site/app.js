@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json({ limit: '15mb' })); 
 app.use(bodyParser.urlencoded({ limit: '15mb', extended: true }));
-app.use('/api/posts', feedRouter);
+app.use('/api/feed', feedRouter);
 
 app.use(cors({
   origin: 'http://localhost:3333',
@@ -44,6 +44,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } 
 }));
+
+
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);

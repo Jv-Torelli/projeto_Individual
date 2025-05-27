@@ -1,12 +1,17 @@
 var database = require("../database/config");
 
-function criarNovaPostagemBase64(imagem, descricao, fkUsuario ){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function criarNovaPostagem(): ")
-    var instrucaoSql = `
-    INSERT INTO postagem (urlFoto, conteudo, fkUsuario)
-    VALUES ('${imagem}', '${descricao}', '${fkUsuario}');
-    `
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+function criarNovaPostagemBase64(imagem, descricao, fkUsuario) {
+    console.log("Dados recebidos no model:", {
+        tamanhoImagem: imagem.length,
+        descricao: descricao,
+        fkUsuario
+    });
+
+    const instrucaoSql = `
+        INSERT INTO postagem (urlFoto, conteudo, fkUsuario)
+        VALUES ('${imagem}', '${descricao}', ${fkUsuario});
+    `;
+
     return database.executar(instrucaoSql);
 }
 

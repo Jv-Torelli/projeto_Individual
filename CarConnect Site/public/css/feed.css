@@ -248,7 +248,7 @@ label {
 .conteudo-modal {
     background-color: white;
     margin: 10% auto;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
     width: 80%;
     max-width: 500px;
@@ -256,10 +256,10 @@ label {
 
 .conteudo-modal h2{
     position: relative;
-    bottom: 20px;
-    font-size: 28px;
+    font-size: 23px;
     font-weight: bold;
     border-bottom: solid 1.5px rgba(0, 0, 0, 0.5);
+    bottom: 35px;
 }
 
 .select_foto{
@@ -270,11 +270,13 @@ label {
 
 
 .botao-fechar {
+    position: relative;
     color: rgba(0, 0, 0, 0.5);
-    float: right;
     font-size: 30px;
     font-weight: bold;
+    left: 480px;
     cursor: pointer;
+    bottom: 20px;
 }
 
 .botao-fechar:hover {
