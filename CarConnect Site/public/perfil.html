@@ -19,17 +19,7 @@
                     <div class="item-estatistica">
                         <span class="numero">3</span> publicações
                     </div>
-                    <div class="item-estatistica">
-                        <span class="numero" id="contagem-seguidores">1.245</span> seguidores
-                    </div>
                 </div>
-                <p class="nomeComp">João Victor Torelli de Matos</p><br>
-                <p class="biografia">👨‍💻 Estudante de ADS | SPTech <br>
-                    💡 Apaixonado por tecnologia e inovação <br>
-                    📚 Em busca de conhecimento constante <br>
-                    🚀 Futuro Dev | Backend & Cloud Enthusiast <br>
-                    📍 São Paulo - SP</p>
-                <button class="botao-seguir" id="botao-seguir">Seguir</button>
             </div>
         </div>
 
@@ -59,8 +49,6 @@
                     <button onclick="enviarComentario(this)">Enviar</button>
                     <div class="lista-comentarios"></div>
                 </div>
-                <div class="comentarios">Ver todos os 14 comentários</div>
-                <div class="tempo-postagem">há 2 horas</div>
             </div>
             
             <!-- Postagem 2 -->
@@ -119,35 +107,14 @@
 </html>
 
 <script>
-    const botaoSeguir = document.getElementById('botao-seguir');
-    const contagemSeguidores = document.getElementById('contagem-seguidores');
-    let seguindo = false;
-    let numeroSeguidores = 1245;
 
-    botaoSeguir.addEventListener('click', function() {
-        if (seguindo) {
-            botaoSeguir.textContent = 'Seguir';
-            botaoSeguir.classList.remove('seguindo');
-            numeroSeguidores--;
-        } else {
-            botaoSeguir.textContent = 'Seguindo';
-            botaoSeguir.classList.add('seguindo');
-            numeroSeguidores++;
-        }
-        
-        // Atualiza o número de seguidores com contador
-        contagemSeguidores.textContent = numeroSeguidores.toLocaleString('pt-BR');
-        seguindo = !seguindo;
-    });
-
-    // Faz o a função de voltar ao clicar no botão
     document.querySelector('.botao-voltar').addEventListener('click', function() {
             let contador = 3;
             const intervalo = setInterval(function() {
                 contador--;
                 if (contador <= 0) {
                     clearInterval(intervalo);
-                    window.location.href = './feed.html'; // Redireciona para o feed
+                    window.location.href = './feed.html';
                 }
             }, 500);
         });

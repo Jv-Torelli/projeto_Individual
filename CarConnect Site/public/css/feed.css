@@ -131,8 +131,8 @@ label {
 }
 
 .nome-usuario-postagem {
-    font-weight: bold;
-    margin-left: 10px;
+    position: relative;
+    left: 10px;
 }
 
 .imagem-postagem {
@@ -320,3 +320,4 @@ label {
     border: solid 2px #547792;
     border-radius: 15px;
 }
+

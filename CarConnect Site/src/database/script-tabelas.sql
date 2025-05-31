@@ -48,12 +48,3 @@ CREATE TABLE comentario (
     FOREIGN KEY (fkPostagem) REFERENCES postagem(idpostagem),
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
-
-CREATE TABLE seguidores (
-    idseguidores INT PRIMARY KEY AUTO_INCREMENT,
-    dataComecouSeguir DATE,
-    fkUsuario INT,
-    fkUsuarioSeguindo INT,
-    FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario),
-    FOREIGN KEY (fkUsuarioSeguindo) REFERENCES usuario(idusuario)
-);

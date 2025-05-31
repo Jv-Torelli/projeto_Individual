@@ -394,7 +394,7 @@
             console.log('Post criado:', data);
 
             const urlImagem = URL.createObjectURL(imagemPostArquivo);
-            adicionarNovaPostagemAoFeed(urlImagem, legenda);
+            adicionarPostagemAoFeed(urlImagem, legenda);
             fecharModalPost();
 
             alert('Postagem criada com sucesso!');
@@ -418,68 +418,94 @@
         });
     }
 
-    async function carregarPostagensUsuario() {
-        const idUsuario = sessionStorage.ID_USUARIO;
-        if (!idUsuario) {
-            console.error('Usuário não identificado');
-            return;
+   async function carregarFeed() {
+    try {
+        const response = await fetch('/api/feed/feed');
+        if (!response.ok) {
+            throw new Error('Erro ao carregar o feed');
         }
 
-        try {
-            const response = await fetch(`/api/feed/${idUsuario}`);
-            if (!response.ok) {
-                throw new Error('Erro ao carregar postagens');
-            }
+        const postagens = await response.json();
+        console.log('Feed carregado:', postagens);
 
-            const postagens = await response.json();
-            console.log('Postagens carregadas:', postagens);
+        // Limpar o feed atual
+        const listaPostagens = document.querySelector('.lista-postagens');
+        listaPostagens.innerHTML = '';
 
-            postagens.forEach(post => {
-                adicionarPostagemAoFeed(post);
-            });
+        postagens.forEach(post => {
+            adicionarPostagemAoFeed(post);
+        });
 
-        } catch (error) {
-            console.error('Erro:', error);
-            alert('Erro ao carregar postagens');
-        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao carregar o feed');
     }
+}
 
-
-    function adicionarPostagemAoFeed(post) {
+function adicionarPostagemAoFeed(post) {
     const listaPostagens = document.querySelector('.lista-postagens');
 
     const novaPostagem = document.createElement('div');
     novaPostagem.className = 'postagem';
 
-    const fotoPerfilSrc = obterFotoPerfilAtual();
-    const nomeUsuario = sessionStorage.NOME_USUARIO || 'Usuário';
+    // Formatar a data
+    const dataPostagem = new Date(post.dtPostagem);
+    const dataFormatada = dataPostagem.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 
-    const dataPostagem = new Date(post.createdAt).toLocaleString();
-
+    // Construir a estrutura da postagem
     novaPostagem.innerHTML = `
-        <div class="cabecalho-postagem">
-            <img src="${fotoPerfilSrc}" alt="Foto do Usuário" class="foto-usuario-postagem">
-            <span class="nome-usuario-postagem">${nomeUsuario}</span>
+  <div class="cabecalho-postagem">
+            <img src="${post.fotoPerfil}" 
+                 alt="Foto do Usuário" 
+                 class="foto-usuario-postagem">
+            <button class="nome-usuario-postagem" data-userid="${post.idusuario}">${post.nome}</button>
         </div>
-        <img src="${post.imagemBase64}" alt="Postagem" class="imagem-postagem">
+        ${post.urlFoto ? `<img src="${post.urlFoto}" alt="Imagem da postagem" class="imagem-postagem">` : ''}
         <div class="acoes-postagem">
-            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
+            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this, ${post.idpostagem})"></i>
             <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
         </div>
-        <div class="info-curtidas">0 curtidas</div>
+        <div class="info-curtidas">${post.curtidas || 0} curtidas</div>
         <div class="legenda-postagem">
-            <span class="nome-usuario-legenda">${nomeUsuario}</span>
-            ${post.legenda}
+            <button class="nome-usuario-legenda" data-userid="${post.idusuario}">${post.nome}</button>
+            ${post.conteudo || ''}
         </div>
         <div class="comentarios" style="display: none;">
             <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-            <button onclick="enviarComentario(this)">Enviar</button>
+            <button onclick="enviarComentario(this, ${post.idpostagem})">Enviar</button>
             <div class="lista-comentarios"></div>
         </div>
-        <div class="tempo-postagem">${dataPostagem}</div>
     `;
 
     listaPostagens.appendChild(novaPostagem);
+
+    const botoesPerfil = novaPostagem.querySelectorAll('.nome-usuario-postagem, .nome-usuario-legenda');
+    botoesPerfil.forEach(botao => {
+        botao.addEventListener('click', function() {
+            const userId = this.getAttribute('data-userid');
+            redirecionarParaPerfil(userId);
+        });
+        botao.style.background = 'none';
+        botao.style.border = 'none';
+        botao.style.padding = '0';
+        botao.style.font = 'inherit';
+        botao.style.color = 'inherit';
+        botao.style.cursor = 'pointer';
+        botao.style.textDecoration = 'none';
+        botao.style.fontWeight = 'bold';
+    });
+}
+
+function redirecionarParaPerfil(userId) {
+    // Implementar redirecionamento para perfil
+    console.log(`Redirecionando para perfil do usuário ID: ${userId}`);
+    window.location.href = `perfil.html?id=${userId}`;
 }
 
 
@@ -528,9 +554,9 @@
         fotoPerfilCarregada = false;
     }
 
-    window.onload = function () {
-        inicializarPagina();
-        carregarPostagensUsuario();
-    };
+   window.onload = function () {
+    inicializarPagina();
+    carregarFeed();
+};
 
 </script>

@@ -15,15 +15,21 @@ function criarNovaPostagemBase64(imagem, descricao, fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function adicionarNovaPostagemAoFeed(fkUsuario) {
+function adicionarPostagemAoFeed() {
     console.log("ACESSEI O POST MODEL - adicionarNovaPostagemAoFeed()");
     
     var instrucaoSql = `
-    SELECT p.urlFoto, p.conteudo, u.nome 
-    FROM postagem p
-    JOIN usuario u ON u.idUsuario = p.fkUsuario 
-    WHERE p.fkUsuario = ${fkUsuario}
-    ORDER BY p.idPostagem DESC;
+   SELECT 
+            p.idpostagem,
+            p.conteudo,
+            p.urlFoto,
+            DATE_FORMAT(p.dtPostagem, '%d/%m/%Y %H:%i') as dtPostagem,
+            u.idusuario,
+            u.nome,
+            u.fotoPerfil
+        FROM postagem p
+        JOIN usuario u ON p.fkUsuario = u.idusuario
+        ORDER BY p.dtPostagem DESC;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -31,5 +37,5 @@ function adicionarNovaPostagemAoFeed(fkUsuario) {
 }
 module.exports = {
     criarNovaPostagemBase64,
-    adicionarNovaPostagemAoFeed
+    adicionarPostagemAoFeed
 }
