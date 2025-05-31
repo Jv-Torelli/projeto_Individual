@@ -1,6 +1,6 @@
 var curtidaModel = require("../models/curtidaModel");
 
-function curtir(req, res) {
+function curtirPost(req, res) {
     var idPostagem = req.body.idPostagem;
     var idUsuario = req.body.idUsuario;
 
@@ -138,7 +138,7 @@ function contarCurtidas(req, res) {
 }
 
 module.exports = {
-    curtir,
+    curtirPost,
     descurtir,
     verificarCurtida,
     contarCurtidas

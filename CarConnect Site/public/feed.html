@@ -485,6 +485,21 @@ function adicionarPostagemAoFeed(post) {
 
     listaPostagens.appendChild(novaPostagem);
 
+      const iconeCurtir = novaPostagem.querySelector('.icone-curtir');
+    iconeCurtir.addEventListener('click', () => {
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            alert('Usuário não logado');
+            return;
+        }
+        curtirPost(post.idpostagem, idUsuario);
+    });
+
+    const iconeComentarios = novaPostagem.querySelector('.icone-comentarios');
+    iconeComentarios.addEventListener('click', function() {
+        toggleComentarios(this);
+    });
+
     const botoesPerfil = novaPostagem.querySelectorAll('.nome-usuario-postagem, .nome-usuario-legenda');
     botoesPerfil.forEach(botao => {
         botao.addEventListener('click', function() {
@@ -510,25 +525,91 @@ function redirecionarParaPerfil(userId) {
 
 
 
-    function curtirPost(icone) {
-        if (icone.classList.contains("fa-regular")) {
-            icone.classList.remove("fa-regular");
-            icone.classList.add("fa-solid");
-            icone.style.color = "red";
+    async function curtirPost(idPostagem, idUsuario) {
+    try {
+        const response = await fetch('/curtida/${idPostagem}', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idPostagem,
+                idUsuario
+            })
+        });
 
-            const infoCurtidas = icone.parentElement.nextElementSibling;
-            let numCurtidas = parseInt(infoCurtidas.textContent);
-            infoCurtidas.textContent = (numCurtidas + 1) + " curtidas";
-        } else {
-            icone.classList.remove("fa-solid");
-            icone.classList.add("fa-regular");
-            icone.style.color = "black";
-
-            const infoCurtidas = icone.parentElement.nextElementSibling;
-            let numCurtidas = parseInt(infoCurtidas.textContent);
-            infoCurtidas.textContent = (numCurtidas - 1) + " curtidas";
+        if (!response.ok) {
+            throw new Error("Erro ao curtir a postagem");
         }
+
+        const data = await response.json();
+        console.log("Postagem curtida com sucesso", data);
+        return data;
+    } catch (error) {
+        console.error(error);
     }
+}
+
+// Descurtir postagem
+async function descurtirPostagem(idPostagem, idUsuario) {
+    try {
+        const response = await fetch('/curtida/${idPostagem}', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idPostagem,
+                idUsuario
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao descurtir a postagem");
+        }
+
+        const data = await response.json();
+        console.log("Postagem descurtida com sucesso", data);
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Ver se o usuário curtiu a postagem
+async function verificarCurtida(idPostagem, idUsuario) {
+    try {
+        const response = await fetch(`/curtida/verificar/${idPostagem}/${idUsuario}`);
+
+        if (!response.ok) {
+            throw new Error("Erro ao verificar curtida");
+        }
+
+        const data = await response.json();
+        console.log("Verificação de curtida: ", data);
+        return data;  // Normalmente { curtido: true/false }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Contar quantas curtidas tem
+async function contarCurtidas(idPostagem) {
+    try {
+        const response = await fetch(`/curtida/contar/${idPostagem}`);
+
+        if (!response.ok) {
+            throw new Error("Erro ao contar curtidas");
+        }
+
+        const data = await response.json();
+        console.log(`Postagem ${idPostagem} possui ${data.total} curtidas`);
+        return data.total;  // Assume que backend retorna { total: <number> }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
     function toggleComentarios(icone) {
         const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;

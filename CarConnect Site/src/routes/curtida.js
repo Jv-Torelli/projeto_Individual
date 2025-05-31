@@ -5,7 +5,7 @@ var curtidaController = require("../controllers/curtidaController");
 
 // curtir
 router.post("/", function (req, res) {
-    curtidaController.curtir(req, res);
+    curtidaController.curtirPost(req, res);
 });
 
 // descurtir 

@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function curtir(idPostagem, idUsuario) {
+function curtirPost(idPostagem, idUsuario) {
     console.log("ACESSEI O CURTIDA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function curtir():", idPostagem, idUsuario);
     
     var instrucaoSql = `
@@ -43,7 +43,7 @@ function contarCurtidas(idPostagem) {
 }
 
 module.exports = {
-    curtir,
+    curtirPost,
     descurtir,
     verificarCurtida,
     contarCurtidas
