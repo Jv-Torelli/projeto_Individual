@@ -8,14 +8,15 @@ CREATE TABLE usuario (
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
     bio VARCHAR(200),
-    fotoPerfil VARCHAR(500),
-    dtCriacaoConta DATE
+    fotoPerfil LONGTEXT,
+    dtCriacaoConta DATE,
+    senha VARCHAR(12)
 );
 
-SELECT * FROM postagem;
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,
+    urlFoto LONGTEXT,
     conteudo VARCHAR(200),
     dtPostagem DATE,
     fkUsuario INT,
