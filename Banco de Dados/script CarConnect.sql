@@ -1,5 +1,6 @@
 CREATE DATABASE carConnect;
-USE carConnect;
+USE carConnect;	
+
 
 CREATE TABLE usuario (
     idusuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -10,6 +11,8 @@ CREATE TABLE usuario (
     fotoPerfil VARCHAR(500),
     dtCriacaoConta DATE
 );
+
+SELECT * FROM postagem;
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,
@@ -37,11 +40,3 @@ CREATE TABLE comentario (
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
 
-CREATE TABLE seguidores (
-    idseguidores INT PRIMARY KEY AUTO_INCREMENT,
-    dataComecouSeguir DATE,
-    fkUsuario INT,
-    fkUsuarioSeguindo INT,
-    FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario),
-    FOREIGN KEY (fkUsuarioSeguindo) REFERENCES usuario(idusuario)
-);
