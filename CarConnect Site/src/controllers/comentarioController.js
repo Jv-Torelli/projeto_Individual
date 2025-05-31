@@ -16,7 +16,7 @@ function criarComentario(req, res) {
     } else if (idUsuario == undefined) {
         res.status(400).json({ erro: "Seu ID do usuário está undefined!" });
     } else {
-        // Sanitizar o texto para evitar SQL injection
+        // evita sql injection
         texto = texto.replace(/'/g, "''");
 
         comentarioModel.criarComentario(texto, idPostagem, idUsuario)

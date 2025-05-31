@@ -4,7 +4,7 @@ var router = express.Router();
 var curtidaController = require("../controllers/curtidaController");
 
 // curtir
-router.post("/", function (req, res) {
+router.post("/curtir", function (req, res) {
     curtidaController.curtirPost(req, res);
 });
 

@@ -28,6 +28,7 @@ label {
 .imgPerfil {
     position: relative;
     background-color: #94B4C1;
+    object-fit: contain;
     width: 90px;
     height: 90px;
     border-radius: 80px;
@@ -321,3 +322,85 @@ label {
     border-radius: 15px;
 }
 
+
+.lista-comentarios {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.comentario-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e1e1e1;
+}
+
+.foto-comentario {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.comentario-conteudo {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.nome-comentario {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.texto-comentario {
+    position: relative;
+    top: 39px;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+
+.btn-excluir-comentario {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.btn-excluir-comentario:hover {
+    color: #dc3545;
+    background-color: #f8f9fa;
+}
+
+.lista-comentarios::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-comentarios::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.lista-comentarios::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.lista-comentarios::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

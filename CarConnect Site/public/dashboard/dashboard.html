@@ -11,7 +11,7 @@
 <body>
   <header>
     <button class="btn-voltar" onclick="volta()">Voltar</button>
-    <div class="nome_user">Olá, Usuário X</div>
+    <div class="nome_user">Olá, <span id="nome_usuario">Usuário X</span></div>
   </header>
 
   <div class="dashboard-container">
@@ -25,7 +25,7 @@
         <p>--</p>
       </div>
       <div class="indicador">
-        <h3>Seguidores</h3>
+        <h3>Total de Interações</h3>
         <p>--</p>
       </div>
     </div>
@@ -40,6 +40,24 @@
 </html>
 
   <script>
+
+    window.onload = function () {
+        inicializarPagina();
+    };
+
+    // Função para inicializar a página
+    function inicializarPagina() {
+        // Debug - verificar sessionStorage
+        console.log('SessionStorage contents:', {
+            ID_USUARIO: sessionStorage.ID_USUARIO,
+            NOME_USUARIO: sessionStorage.NOME_USUARIO
+        });
+
+         if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+        }
+
+      }
 
     function volta(){
 
@@ -86,7 +104,6 @@
 
     async function carregarDados() {
       try {
-        // Simulando dados recebidos da API
         const dados = {
           totalCurtidas: 4580,
           totalPostagens: 120,

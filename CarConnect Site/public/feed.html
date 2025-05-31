@@ -70,48 +70,39 @@
 <script>
     let imagemPerfilArquivo = null;
     let imagemPostArquivo = null;
-    let fotoPerfilCarregada = false; // Flag para controlar se já carregou a foto
+    let fotoPerfilCarregada = false;
 
-    // Inicializar página
+    
     window.onload = function () {
         inicializarPagina();
     };
 
-    // Função para inicializar a página
-    function inicializarPagina() {
-        // Debug - verificar sessionStorage
-        console.log('SessionStorage contents:', {
-            ID_USUARIO: sessionStorage.ID_USUARIO,
-            NOME_USUARIO: sessionStorage.NOME_USUARIO
-        });
+   function inicializarPagina() {
 
-        // Definir nome do usuário
-        if (sessionStorage.NOME_USUARIO) {
-            document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
-        }
+    console.log('SessionStorage contents:', {
+        ID_USUARIO: sessionStorage.ID_USUARIO,
+        NOME_USUARIO: sessionStorage.NOME_USUARIO
+    });
 
-        // Limpar qualquer foto de perfil anterior e carregar a do usuário atual
-        limparFotoPerfilAnterior();
-
-        // Aguardar um pouco antes de carregar a imagem para garantir que tudo está pronto
-        setTimeout(() => {
-            carregarImagemPerfil();
-        }, 100);
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
     }
 
-    // Função para limpar foto de perfil anterior
+    limparFotoPerfilAnterior();
+
+    setTimeout(() => {
+        carregarImagemPerfil();
+    }, 100);
+
+    carregarFeed();
+}
+
     function limparFotoPerfilAnterior() {
-        // Remove a foto do sessionStorage para evitar conflitos
         sessionStorage.removeItem('fotoPerfil');
-
-        // Define imagem padrão
         document.getElementById('imagem-perfil').src = './assets/img/avatarPerfil.jpg';
-
-        // Reseta flag
         fotoPerfilCarregada = false;
     }
 
-    // Função para converter imagem para Base64
     function converterImagemParaBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -121,7 +112,6 @@
         });
     }
 
-    // Função para carregar imagem no elemento após seleção
     function carregarImagem(event) {
         const imagemPerfil = document.getElementById('imagem-perfil');
         imagemPerfilArquivo = event.target.files[0];
@@ -146,7 +136,6 @@
             return;
         }
 
-        // Verificar se o usuário está logado
         const idUsuario = sessionStorage.ID_USUARIO;
         if (!idUsuario) {
             alert('Erro: Usuário não identificado. Faça login novamente.');
@@ -154,10 +143,8 @@
         }
 
         try {
-            // Converter a imagem para Base64
             const imagemBase64 = await converterImagemParaBase64(imagem);
 
-            // Enviar para o servidor com o ID do usuário
             const response = await fetch('/usuarios/upload/perfil/base64', {
                 method: 'POST',
                 headers: {
@@ -165,7 +152,7 @@
                 },
                 body: JSON.stringify({
                     imagemBase64: imagemBase64,
-                    idUsuario: idUsuario // Incluir ID do usuário
+                    idUsuario: idUsuario
                 }),
                 credentials: 'include'
             });
@@ -177,10 +164,7 @@
             const data = await response.json();
             console.log("Upload bem-sucedido:", data);
 
-            // Esconder o botão
             document.getElementById('botao-enviar-perfil').style.display = 'none';
-
-            // Marcar que a foto foi carregada
             fotoPerfilCarregada = true;
 
             alert('Foto de perfil atualizada com sucesso!');
@@ -191,7 +175,6 @@
         }
     }
 
-    // Função para carregar imagem de perfil do servidor
     function carregarImagemPerfil() {
         const idUsuario = sessionStorage.ID_USUARIO;
         if (!idUsuario) {
@@ -200,7 +183,6 @@
             return;
         }
 
-        // Se já carregou a foto, não carrega novamente
         if (fotoPerfilCarregada) {
             return;
         }
@@ -242,13 +224,11 @@
             });
     }
 
-    // Função para obter foto de perfil atual (para usar nos posts)
     function obterFotoPerfilAtual() {
         const imgElement = document.getElementById('imagem-perfil');
         return imgElement.src || './assets/img/avatarPerfil.jpg';
     }
 
-    // Funções do modal de post
     function abrirModalPost() {
         console.log('Abrindo modal de post');
         document.getElementById('janela-modal-post').style.display = 'block';
@@ -264,7 +244,6 @@
         document.getElementById('botao-publicar-post').style.display = 'none';
         imagemPostArquivo = null;
 
-        // Limpar URLs criadas para evitar vazamento de memória
         const previaImg = document.getElementById('previa-imagem-post');
         if (previaImg.src && previaImg.src.startsWith('blob:')) {
             URL.revokeObjectURL(previaImg.src);
@@ -336,7 +315,6 @@
             return false;
         }
 
-
         const tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
         if (!tiposPermitidos.includes(imagemPostArquivo.type)) {
             console.error('Tipo de arquivo não suportado:', imagemPostArquivo.type);
@@ -393,9 +371,8 @@
             const data = await response.json();
             console.log('Post criado:', data);
 
-            const urlImagem = URL.createObjectURL(imagemPostArquivo);
-            adicionarPostagemAoFeed(urlImagem, legenda);
             fecharModalPost();
+            carregarFeed();
 
             alert('Postagem criada com sucesso!');
 
@@ -408,18 +385,9 @@
         }
     }
 
-
-    function converterImagemParaBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-            reader.readAsDataURL(file);
-        });
-    }
-
    async function carregarFeed() {
     try {
+        // ENDPOINT CORRIGIDO: /api/feed/feed
         const response = await fetch('/api/feed/feed');
         if (!response.ok) {
             throw new Error('Erro ao carregar o feed');
@@ -428,13 +396,13 @@
         const postagens = await response.json();
         console.log('Feed carregado:', postagens);
 
-        // Limpar o feed atual
         const listaPostagens = document.querySelector('.lista-postagens');
         listaPostagens.innerHTML = '';
 
-        postagens.forEach(post => {
-            adicionarPostagemAoFeed(post);
-        });
+        // Processar cada postagem
+        for (const post of postagens) {
+            await adicionarPostagemAoFeed(post);
+        }
 
     } catch (error) {
         console.error('Erro:', error);
@@ -442,13 +410,14 @@
     }
 }
 
-function adicionarPostagemAoFeed(post) {
+async function adicionarPostagemAoFeed(post) {
     const listaPostagens = document.querySelector('.lista-postagens');
+    const idUsuarioLogado = sessionStorage.ID_USUARIO;
 
     const novaPostagem = document.createElement('div');
     novaPostagem.className = 'postagem';
+    novaPostagem.setAttribute('data-post-id', post.idpostagem);
 
-    // Formatar a data
     const dataPostagem = new Date(post.dtPostagem);
     const dataFormatada = dataPostagem.toLocaleString('pt-BR', {
         day: '2-digit',
@@ -458,47 +427,61 @@ function adicionarPostagemAoFeed(post) {
         minute: '2-digit'
     });
 
-    // Construir a estrutura da postagem
+    let jaCurtiu = false;
+    let totalCurtidas = 0;
+    
+    try {
+        const curtidaResponse = await fetch(`/api/curtidas/verificar/${post.idpostagem}/${idUsuarioLogado}`);
+        if (curtidaResponse.ok) {
+            const curtidaData = await curtidaResponse.json();
+            jaCurtiu = curtidaData.curtiu;
+        }
+
+        const contadorResponse = await fetch(`/api/curtidas/contar/${post.idpostagem}`);
+        if (contadorResponse.ok) {
+            const contadorData = await contadorResponse.json();
+            totalCurtidas = contadorData.totalCurtidas || 0;
+        }
+    } catch (error) {
+        console.error('Erro ao verificar curtidas:', error);
+    }
+
+    const classeCurtida = jaCurtiu ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    const corCurtida = jaCurtiu ? 'red' : 'black';
+
     novaPostagem.innerHTML = `
-  <div class="cabecalho-postagem">
-            <img src="${post.fotoPerfil}" 
+        <div class="cabecalho-postagem">
+            <img src="${post.fotoPerfil || './assets/img/avatarPerfil.jpg'}" 
                  alt="Foto do Usuário" 
                  class="foto-usuario-postagem">
             <button class="nome-usuario-postagem" data-userid="${post.idusuario}">${post.nome}</button>
         </div>
         ${post.urlFoto ? `<img src="${post.urlFoto}" alt="Imagem da postagem" class="imagem-postagem">` : ''}
         <div class="acoes-postagem">
-            <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this, ${post.idpostagem})"></i>
-            <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
+            <i class="${classeCurtida} icone-curtir" 
+               style="color: ${corCurtida}; cursor: pointer;" 
+               onclick="curtirPost(this, ${post.idpostagem})"></i>
+            <i class="fa-regular fa-comment icone-comentarios" 
+               style="cursor: pointer;" 
+               onclick="toggleComentarios(this, ${post.idpostagem})"></i>
         </div>
-        <div class="info-curtidas">${post.curtidas || 0} curtidas</div>
+        <div class="info-curtidas">${totalCurtidas} curtidas</div>
         <div class="legenda-postagem">
             <button class="nome-usuario-legenda" data-userid="${post.idusuario}">${post.nome}</button>
             ${post.conteudo || ''}
         </div>
         <div class="comentarios" style="display: none;">
-            <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-            <button onclick="enviarComentario(this, ${post.idpostagem})">Enviar</button>
-            <div class="lista-comentarios"></div>
+            <div class="form-comentario">
+                <input type="text" class="input-comentario" placeholder="Escreva um comentário..." maxlength="100">
+                <button class="btn-enviar-comentario" onclick="enviarComentario(this, ${post.idpostagem})">Enviar</button>
+            </div>
+            <div class="lista-comentarios" data-post-id="${post.idpostagem}">
+                <!-- Comentários serão carregados aqui -->
+            </div>
         </div>
     `;
 
     listaPostagens.appendChild(novaPostagem);
-
-      const iconeCurtir = novaPostagem.querySelector('.icone-curtir');
-    iconeCurtir.addEventListener('click', () => {
-        const idUsuario = sessionStorage.ID_USUARIO;
-        if (!idUsuario) {
-            alert('Usuário não logado');
-            return;
-        }
-        curtirPost(post.idpostagem, idUsuario);
-    });
-
-    const iconeComentarios = novaPostagem.querySelector('.icone-comentarios');
-    iconeComentarios.addEventListener('click', function() {
-        toggleComentarios(this);
-    });
 
     const botoesPerfil = novaPostagem.querySelectorAll('.nome-usuario-postagem, .nome-usuario-legenda');
     botoesPerfil.forEach(botao => {
@@ -518,115 +501,269 @@ function adicionarPostagemAoFeed(post) {
 }
 
 function redirecionarParaPerfil(userId) {
-    // Implementar redirecionamento para perfil
     console.log(`Redirecionando para perfil do usuário ID: ${userId}`);
     window.location.href = `perfil.html?id=${userId}`;
 }
 
+async function curtirPost(icone, idPostagem) {
+    const idUsuario = sessionStorage.ID_USUARIO;
 
+    if (!idUsuario) {
+        alert('Faça login para curtir as postagens.');
+        return;
+    }
 
-    async function curtirPost(idPostagem, idUsuario) {
+    const jaCurtiu = icone.classList.contains("fa-solid");
+    const infoCurtidas = icone.closest('.postagem').querySelector('.info-curtidas');
+
+    // desabilita para não ter mais de um click
+    icone.style.pointerEvents = 'none';
+
     try {
-        const response = await fetch('/curtida/${idPostagem}', {
-            method: "POST",
+        let response;
+        
+        if (jaCurtiu) {
+            response = await fetch('/api/curtidas/', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idPostagem: idPostagem,
+                    idUsuario: idUsuario
+                })
+            });
+        } else {
+            response = await fetch('/api/curtidas/curtir', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idPostagem: idPostagem,
+                    idUsuario: idUsuario
+                })
+            });
+        }
+
+        if (!response.ok) {
+            throw new Error('Erro ao processar a curtida');
+        }
+
+        const resultado = await response.json();
+
+        if (resultado.sucesso) {
+            if (jaCurtiu) {
+                icone.classList.remove("fa-solid");
+                icone.classList.add("fa-regular");
+                icone.style.color = "black";
+            } else {
+                icone.classList.remove("fa-regular");
+                icone.classList.add("fa-solid");
+                icone.style.color = "red";
+            }
+
+            infoCurtidas.textContent = `${resultado.totalCurtidas} curtidas`;
+        } else {
+            throw new Error(resultado.erro || 'Erro ao processar curtida');
+        }
+
+    } catch (error) {
+        console.error('Erro ao curtir postagem:', error);
+        alert('Erro ao processar a curtida. Tente novamente.');
+    } finally {
+        icone.style.pointerEvents = 'auto';
+    }
+}
+
+async function toggleComentarios(icone, idPostagem) {
+    const comentariosDiv = icone.closest('.postagem').querySelector('.comentarios');
+    const listaComentarios = comentariosDiv.querySelector('.lista-comentarios');
+    
+    if (comentariosDiv.style.display === "none") {
+        comentariosDiv.style.display = "block";
+        
+        if (listaComentarios.children.length === 0) {
+            await carregarComentarios(idPostagem);
+        }
+    } else {
+        comentariosDiv.style.display = "none";
+    }
+}
+
+async function carregarComentarios(idPostagem) {
+    try {
+        const response = await fetch(`/api/comentarios/${idPostagem}`);
+        
+        if (!response.ok) {
+            throw new Error('Erro ao carregar comentários');
+        }
+
+        const comentarios = await response.json();
+        const listaComentarios = document.querySelector(`.lista-comentarios[data-post-id="${idPostagem}"]`);
+        
+        if (!listaComentarios) {
+            console.error('Lista de comentários não encontrada');
+            return;
+        }
+
+        listaComentarios.innerHTML = '';
+
+        comentarios.forEach(comentario => {
+            adicionarComentarioNaLista(comentario, listaComentarios);
+        });
+
+    } catch (error) {
+        console.error('Erro ao carregar comentários:', error);
+        alert('Erro ao carregar comentários');
+    }
+}
+
+function adicionarComentarioNaLista(comentario, listaComentarios) {
+    const divComentario = document.createElement('div');
+    divComentario.className = 'comentario-item';
+    divComentario.setAttribute('data-comentario-id', comentario.idcomentario);
+
+    const dataComentario = new Date(comentario.dtComent);
+    const dataFormatada = dataComentario.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    const idUsuarioLogado = sessionStorage.ID_USUARIO;
+    const podeExcluir = comentario.fkUsuario == idUsuarioLogado;
+
+    divComentario.innerHTML = `
+        <div class="comentario-header">
+            <img src="${comentario.fotoPerfil || './assets/img/avatarPerfil.jpg'}" 
+                 alt="Foto do usuário" 
+                 class="foto-comentario">
+            <div class="comentario-info">
+                <span class="nome-comentario">${comentario.nomeUsuario}:</span>
+            </div>
+            ${podeExcluir ? `<button class="btn-excluir-comentario" onclick="excluirComentario(${comentario.idcomentario}, this)" title="Excluir comentário">
+                <i class="fa-solid fa-trash"></i>
+            </button>` : ''}
+        </div>
+        <p class="texto-comentario">${comentario.texto}</p>
+    `;
+
+    listaComentarios.appendChild(divComentario);
+}
+
+async function enviarComentario(botao, idPostagem) {
+    const idUsuario = sessionStorage.ID_USUARIO;
+    const inputComentario = botao.previousElementSibling;
+    const textoComentario = inputComentario.value.trim();
+
+    if (!idUsuario) {
+        alert('Faça login para comentar.');
+        return;
+    }
+
+    if (!textoComentario) {
+        alert('Digite um comentário antes de enviar.');
+        return;
+    }
+
+    if (textoComentario.length > 100) {
+        alert('O comentário deve ter no máximo 100 caracteres.');
+        return;
+    }
+
+    botao.disabled = true;
+    const textoOriginal = botao.textContent;
+    botao.textContent = 'Enviando...';
+
+    try {
+        const response = await fetch('/api/comentarios/coment', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idPostagem,
-                idUsuario
+                texto: textoComentario,
+                idPostagem: idPostagem,
+                idUsuario: idUsuario
             })
         });
 
         if (!response.ok) {
-            throw new Error("Erro ao curtir a postagem");
+            const errorData = await response.json();
+            throw new Error(errorData.erro || 'Erro ao enviar comentário');
         }
 
-        const data = await response.json();
-        console.log("Postagem curtida com sucesso", data);
-        return data;
+        const resultado = await response.json();
+
+        if (resultado.mensagem) {
+            inputComentario.value = '';
+
+            await carregarComentarios(idPostagem);
+
+            console.log('Comentário enviado com sucesso');
+        } else {
+            throw new Error('Erro ao processar comentário');
+        }
+
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao enviar comentário:', error);
+        alert('Erro ao enviar comentário: ' + error.message);
+    } finally {
+        // deixa o botão ativo denovo
+        botao.disabled = false;
+        botao.textContent = textoOriginal;
     }
 }
 
-// Descurtir postagem
-async function descurtirPostagem(idPostagem, idUsuario) {
+async function excluirComentario(idComentario, botaoExcluir) {
+    const idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!idUsuario) {
+        alert('Faça login para excluir comentários.');
+        return;
+    }
+
+    if (!confirm('Tem certeza que deseja excluir este comentário?')) {
+        return;
+    }
+
     try {
-        const response = await fetch('/curtida/${idPostagem}', {
-            method: "DELETE",
+        const response = await fetch(`/api/comentarios/${idComentario}`, {
+            method: 'DELETE',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idPostagem,
-                idUsuario
+                idUsuario: idUsuario
             })
         });
 
         if (!response.ok) {
-            throw new Error("Erro ao descurtir a postagem");
+            const errorData = await response.json();
+            throw new Error(errorData.erro || 'Erro ao excluir comentário');
         }
 
-        const data = await response.json();
-        console.log("Postagem descurtida com sucesso", data);
-        return data;
+        const resultado = await response.json();
+
+        if (resultado.mensagem) {
+            const comentarioItem = botaoExcluir.closest('.comentario-item');
+            if (comentarioItem) {
+                comentarioItem.remove();
+            }
+            console.log('Comentário excluído com sucesso');
+        } else {
+            throw new Error('Erro ao processar exclusão');
+        }
+
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao excluir comentário:', error);
+        alert('Erro ao excluir comentário: ' + error.message);
     }
 }
 
-// Ver se o usuário curtiu a postagem
-async function verificarCurtida(idPostagem, idUsuario) {
-    try {
-        const response = await fetch(`/curtida/verificar/${idPostagem}/${idUsuario}`);
-
-        if (!response.ok) {
-            throw new Error("Erro ao verificar curtida");
-        }
-
-        const data = await response.json();
-        console.log("Verificação de curtida: ", data);
-        return data;  // Normalmente { curtido: true/false }
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// Contar quantas curtidas tem
-async function contarCurtidas(idPostagem) {
-    try {
-        const response = await fetch(`/curtida/contar/${idPostagem}`);
-
-        if (!response.ok) {
-            throw new Error("Erro ao contar curtidas");
-        }
-
-        const data = await response.json();
-        console.log(`Postagem ${idPostagem} possui ${data.total} curtidas`);
-        return data.total;  // Assume que backend retorna { total: <number> }
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-
-    function toggleComentarios(icone) {
-        const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
-        comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
-    }
-
-    function enviarComentario(botao) {
-        const divComentarios = botao.nextElementSibling;
-        const inputComentario = botao.previousElementSibling;
-
-        if (inputComentario.value.trim() !== "") {
-            const novoComentario = document.createElement("p");
-            novoComentario.innerHTML = `<strong>${sessionStorage.NOME_USUARIO}</strong>: ${inputComentario.value}`;
-            divComentarios.appendChild(novoComentario);
-            inputComentario.value = "";
-        }
-    }
 
     function limparDadosUsuario() {
         sessionStorage.removeItem('fotoPerfil');
@@ -635,9 +772,5 @@ async function contarCurtidas(idPostagem) {
         fotoPerfilCarregada = false;
     }
 
-   window.onload = function () {
-    inicializarPagina();
-    carregarFeed();
-};
 
 </script>

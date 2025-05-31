@@ -1,78 +1,34 @@
 var curtidaModel = require("../models/curtidaModel");
 
-function curtirPost(req, res) {
-    var idPostagem = req.body.idPostagem;
-    var idUsuario = req.body.idUsuario;
+async function curtirPost(req, res) {
+    const { idPostagem, idUsuario } = req.body;
 
-    if (idPostagem == undefined) {
-        res.status(400).json({ erro: "Seu ID da postagem está undefined!" });
-    } else if (idUsuario == undefined) {
-        res.status(400).json({ erro: "Seu ID do usuário está undefined!" });
-    } else {
-        curtidaModel.curtir(idPostagem, idUsuario)
-            .then(function (resultado) {
-                // Após curtir, buscar o total de curtidas
-                return curtidaModel.contarCurtidas(idPostagem);
-            })
-            .then(function (resultadoContagem) {
-                console.log(`\nResultados encontrados: ${resultadoContagem.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultadoContagem)}`);
+    try {
+        await curtidaModel.curtirPost(idPostagem, idUsuario);
+        const resultado = await curtidaModel.contarCurtidas(idPostagem);
 
-                if (resultadoContagem.length > 0) {
-                    res.status(200).json({
-                        mensagem: "Postagem curtida com sucesso!",
-                        totalCurtidas: resultadoContagem[0].totalCurtidas
-                    });
-                } else {
-                    res.status(204).json({
-                        mensagem: "Postagem curtida, mas erro ao contar curtidas",
-                        totalCurtidas: 0
-                    });
-                }
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao curtir a postagem! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
+        const totalCurtidas = resultado[0].totalCurtidas;
+
+        res.json({ sucesso: true, totalCurtidas });
+    } catch (erro) {
+        console.error("Erro ao curtir:", erro);
+        res.status(500).json({ sucesso: false, erro: erro.message });
     }
 }
 
-function descurtir(req, res) {
-    var idPostagem = req.body.idPostagem;
-    var idUsuario = req.body.idUsuario;
+async function descurtir(req, res) {
+    const { idPostagem, idUsuario } = req.body;
 
-    if (idPostagem == undefined) {
-        res.status(400).json({ erro: "Seu ID da postagem está undefined!" });
-    } else if (idUsuario == undefined) {
-        res.status(400).json({ erro: "Seu ID do usuário está undefined!" });
-    } else {
-        curtidaModel.descurtir(idPostagem, idUsuario)
-            .then(function (resultado) {
-                // Após descurtir, buscar o total de curtidas
-                return curtidaModel.contarCurtidas(idPostagem);
-            })
-            .then(function (resultadoContagem) {
-                console.log(`\nResultados encontrados: ${resultadoContagem.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultadoContagem)}`);
+    try {
+        await curtidaModel.descurtir(idPostagem, idUsuario);
+        const resultado = await curtidaModel.contarCurtidas(idPostagem);
 
-                if (resultadoContagem.length > 0) {
-                    res.status(200).json({
-                        mensagem: "Curtida removida com sucesso!",
-                        totalCurtidas: resultadoContagem[0].totalCurtidas
-                    });
-                } else {
-                    res.status(204).json({
-                        mensagem: "Curtida removida, mas erro ao contar curtidas",
-                        totalCurtidas: 0
-                    });
-                }
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao descurtir a postagem! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
+        const totalCurtidas = resultado[0].totalCurtidas;
+
+        res.json({ sucesso: true, totalCurtidas });
+    } catch (erro) {
+        console.error("Erro ao descurtir:", erro);
+        res.status(500).json({ sucesso: false, erro: erro.message });
     }
 }
 
