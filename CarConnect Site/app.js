@@ -24,7 +24,6 @@ var curtidasRouter = require('./src/routes/curtida')
 var comentariosRouter = require('./src/routes/comentario')
 
 
-
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -34,6 +33,7 @@ app.use(bodyParser.urlencoded({ limit: '15mb', extended: true }));
 app.use('/api/feed', feedRouter);
 app.use("/api/curtidas", curtidasRouter);
 app.use("/api/comentarios", comentariosRouter);
+
 
 app.use(cors({
   origin: 'http://localhost:3333',

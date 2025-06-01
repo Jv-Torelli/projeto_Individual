@@ -122,7 +122,6 @@
         }
     }
 
-    // Função para fazer upload da imagem de perfil
     async function uploadImagemPerfil() {
         const inputImagem = document.getElementById('input-imagem');
         if (!inputImagem) {
@@ -387,7 +386,6 @@
 
    async function carregarFeed() {
     try {
-        // ENDPOINT CORRIGIDO: /api/feed/feed
         const response = await fetch('/api/feed/feed');
         if (!response.ok) {
             throw new Error('Erro ao carregar o feed');
@@ -399,7 +397,6 @@
         const listaPostagens = document.querySelector('.lista-postagens');
         listaPostagens.innerHTML = '';
 
-        // Processar cada postagem
         for (const post of postagens) {
             await adicionarPostagemAoFeed(post);
         }
