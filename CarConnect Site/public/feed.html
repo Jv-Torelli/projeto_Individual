@@ -443,7 +443,7 @@ async function adicionarPostagemAoFeed(post) {
             <img src="${post.fotoPerfil || './assets/img/avatarPerfil.jpg'}" 
                  alt="Foto do Usuário" 
                  class="foto-usuario-postagem">
-            <button class="nome-usuario-postagem" data-userid="${post.idusuario}" onclick="visitarPerfil(${idVisita})">${post.nome}</button>
+            <p class="nome-usuario-postagem">${post.nome}</p>
         </div>
         ${post.urlFoto ? `<img src="${post.urlFoto}" alt="Imagem da postagem" class="imagem-postagem">` : ''}
         <div class="acoes-postagem">
@@ -489,11 +489,6 @@ async function adicionarPostagemAoFeed(post) {
         botao.style.textDecoration = 'none';
         botao.style.fontWeight = 'bold';
     });
-}
-
-function redirecionarParaPerfil(userId) {
-    console.log(`Redirecionando para perfil do usuário ID: ${userId}`);
-    window.location.href = `perfil.html?id=${userId}`;
 }
 
 async function curtirPost(icone, idPostagem) {
