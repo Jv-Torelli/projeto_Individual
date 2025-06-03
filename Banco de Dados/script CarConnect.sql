@@ -13,6 +13,7 @@ CREATE TABLE usuario (
     senha VARCHAR(12)
 );
 
+select * from curtida;
 
 CREATE TABLE postagem (
     idpostagem INT PRIMARY KEY AUTO_INCREMENT,
@@ -41,3 +42,6 @@ CREATE TABLE comentario (
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
 
+CREATE USER 'root'@'%' IDENTIFIED BY 'Jv190107';
+GRANT ALL PRIVILEGES ON . TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
