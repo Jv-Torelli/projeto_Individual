@@ -34,16 +34,13 @@
 <script>
 
 function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+   
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var dtNascimentoVar = data_input.value;
     var senhaVar = senha_input.value;
 
-    // Verificando se há algum campo em branco
+  
     if (
       nomeVar == "" ||
       emailVar == "" ||
@@ -60,7 +57,7 @@ function cadastrar() {
       setTimeout(sumirMensagem, 5000);
     }
 
-    // Enviando o valor da nova input
+   
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {

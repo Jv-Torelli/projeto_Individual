@@ -416,13 +416,6 @@ async function adicionarPostagemAoFeed(post) {
     novaPostagem.setAttribute('data-post-id', post.idpostagem);
 
     const dataPostagem = new Date(post.dtPostagem);
-    const dataFormatada = dataPostagem.toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
 
     let jaCurtiu = false;
     let totalCurtidas = 0;
@@ -451,7 +444,7 @@ async function adicionarPostagemAoFeed(post) {
             <img src="${post.fotoPerfil || './assets/img/avatarPerfil.jpg'}" 
                  alt="Foto do Usuário" 
                  class="foto-usuario-postagem">
-            <button class="nome-usuario-postagem" data-userid="${post.idusuario}">${post.nome}</button>
+            <button class="nome-usuario-postagem" data-userid="${post.idusuario}" onclick="visitarPerfil(${idVisita})">${post.nome}</button>
         </div>
         ${post.urlFoto ? `<img src="${post.urlFoto}" alt="Imagem da postagem" class="imagem-postagem">` : ''}
         <div class="acoes-postagem">
@@ -479,6 +472,8 @@ async function adicionarPostagemAoFeed(post) {
     `;
 
     listaPostagens.appendChild(novaPostagem);
+    var idVisita = post.idusuario;
+    
 
     const botoesPerfil = novaPostagem.querySelectorAll('.nome-usuario-postagem, .nome-usuario-legenda');
     botoesPerfil.forEach(botao => {
@@ -767,6 +762,13 @@ async function excluirComentario(idComentario, botaoExcluir) {
         sessionStorage.removeItem('NOME_USUARIO');
         sessionStorage.removeItem('ID_USUARIO');
         fotoPerfilCarregada = false;
+    }
+
+
+    function visitarPerfil(idVisita) {
+        sessionStorage.ID_USUARIO_VISITA = idVisita
+
+        location.reload = "perfil_visita.html"
     }
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Perfil CarConnect</title>
 </head>
+
 <body>
     <div class="container">
         <button class="botao-voltar" onclick="voltar()">← Voltar</button>
 
         <div class="cabecalho-perfil">
-            <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto de Perfil" class="foto-perfil">
+            <img src="" alt="Foto de Perfil" class="foto-perfil" id="imagem_perfil">
             <div class="estatisticas-perfil">
                 <h2 class="nome-usuario">Jv_Torelli7</h2>
                 <div class="estatisticas">
@@ -28,59 +30,16 @@
         </div>
 
         <div class="lista-postagens">
-            <!-- Postagem 1 -->
             <div class="postagem">
                 <div class="cabecalho-postagem">
-                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
-                </div>
-                <img src="./assets/img/shelby.jpg" alt="Imagem da Postagem 1" class="imagem-postagem">
-                <div class="acoes-postagem">
-                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                </div>
-                <div class="info-curtidas">256 curtidas</div>
-                <div class="legenda-postagem">
-                    <span class="nome-usuario-legenda">Jv_Torelli7</span>
-                    Este Shelby é demais!!!! #Carros #velozesefuriosos
-                </div>
-                <div class="comentarios" style="display: none;">
-                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                    <button onclick="enviarComentario(this)">Enviar</button>
-                    <div class="lista-comentarios"></div>
                 </div>
             </div>
-            
-            <!-- Postagem 2 -->
+
             <div class="postagem">
                 <div class="cabecalho-postagem">
-                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
-                </div>
-                <img src="./assets/img/nivus.jpg" alt="Imagem da Postagem 2" class="imagem-postagem">
-                <div class="acoes-postagem">
-                    <i class="fa-regular fa-heart icone-curtir" onclick="curtirPost(this)"></i>
-                    <i class="fa-regular fa-comment icone-comentarios" onclick="toggleComentarios(this)"></i>
-                </div>
-                <div class="info-curtidas">189 curtidas</div>
-                <div class="legenda-postagem">
-                    <span class="nome-usuario-legenda">Jv_Torelli7</span>
-                    Esse nivus é animal #volks
-                </div>
-                <div class="comentarios" style="display: none;">
-                    <input type="text" class="input-comentario" placeholder="Escreva um comentário...">
-                    <button onclick="enviarComentario(this)">Enviar</button>
-                    <div class="lista-comentarios"></div>
-                </div>
-                <div class="comentarios">Ver todos os 8 comentários</div>
-                <div class="tempo-postagem">há 1 dia</div>
-            </div>
-            
-            <!-- Postagem 3 -->
-            <div class="postagem">
-                <div class="cabecalho-postagem">
-                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário" class="foto-usuario-postagem">
-                    <span class="nome-usuario-postagem">Jv_Torelli7</span>
+                    <img src="./assets/img/WhatsApp Image 2025-04-26 at 15.07.26.jpeg" alt="Foto do Usuário"
+                        class="foto-usuario-postagem">
+                    <span class="nome-usuario-postagem" id="nome_usuario">Jv_Torelli7</span>
                 </div>
                 <img src="./assets/img/lancer.webp" alt="Imagem da Postagem 3" class="imagem-postagem">
                 <div class="acoes-postagem">
@@ -97,54 +56,366 @@
                     <button onclick="enviarComentario(this)">Enviar</button>
                     <div class="lista-comentarios"></div>
                 </div>
-                <div class="comentarios">Ver todos os 21 comentários</div>
-                <div class="tempo-postagem">há 3 dias</div>
             </div>
         </div>
     </div>
 
 </body>
+
 </html>
 
 <script>
 
-    document.querySelector('.botao-voltar').addEventListener('click', function() {
-            let contador = 1;
-            const intervalo = setInterval(function() {
-                contador--;
-                if (contador <= 0) {
-                    clearInterval(intervalo);
-                    window.location.href = './feed.html';
-                }
-            }, 500);
+    document.querySelector('.botao-voltar').addEventListener('click', function () {
+        let contador = 1;
+        const intervalo = setInterval(function () {
+            contador--;
+            if (contador <= 0) {
+                clearInterval(intervalo);
+                window.location.href = './feed.html';
+            }
+        }, 500);
+    });
+
+    // const idUsuario_visita = sessionStorage.ID_USUARIO_VISITA
+
+    function inicializarPagina() {
+
+        console.log('SessionStorage contents:', {
+            ID_USUARIO: sessionStorage.ID_USUARIO,
+            NOME_USUARIO: sessionStorage.NOME_USUARIO
         });
 
-    function curtirPost(icone) {
-        if (icone.classList.contains("fa-regular")) {
-            icone.classList.remove("fa-regular");
-            icone.classList.add("fa-solid");
-            icone.style.color = "red";
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
+        }
+
+        setTimeout(() => {
+            carregarImagemPerfil();
+        }, 100);
+
+        carregarFeed();
+    }
+
+
+    function carregarImagemPerfil() {
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            console.error("ID do usuário não encontrado no sessionStorage");
+            document.getElementById("imagem_perfil").src = './assets/img/avatarPerfil.jpg';
+            return;
+        }
+
+        if (fotoPerfilCarregada) {
+            return;
+        }
+
+        console.log(`Carregando imagem de perfil para usuário ID: ${idUsuario}`);
+
+        fetch(`/usuarios/imagem/perfil/${idUsuario}`, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log(`Response status: ${response.status}`);
+                if (!response.ok) {
+                    console.warn(`Imagem de perfil não encontrada para usuário ${idUsuario}, usando padrão.`);
+                    throw new Error(`Erro HTTP! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos:', data);
+                if (data && data.fotoPerfil) {
+                    console.log('Definindo foto de perfil do usuário');
+                    document.getElementById("imagem-perfil").src = data.fotoPerfil;
+                    document.getElementById('botao-enviar-perfil').style.display = 'none';
+                    fotoPerfilCarregada = true;
+                } else {
+                    console.log('Dados de foto não encontrados, usando padrão');
+                    document.getElementById("imagem-perfil").src = './assets/img/avatarPerfil.jpg';
+                    fotoPerfilCarregada = true;
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao carregar imagem:", error);
+                document.getElementById("imagem-perfil").src = './assets/img/avatarPerfil.jpg';
+                fotoPerfilCarregada = true;
+            });
+    }
+
+    function obterFotoPerfilAtual() {
+        const imgElement = document.getElementById('imagem-perfil');
+        return imgElement.src || './assets/img/avatarPerfil.jpg';
+    }
+
+    async function curtirPost(icone, idPostagem) {
+        const idUsuario = sessionStorage.ID_USUARIO;
+
+        if (!idUsuario) {
+            alert('Faça login para curtir as postagens.');
+            return;
+        }
+
+        const jaCurtiu = icone.classList.contains("fa-solid");
+        const infoCurtidas = icone.closest('.postagem').querySelector('.info-curtidas');
+
+        // desabilita para não ter mais de um click
+        icone.style.pointerEvents = 'none';
+
+        try {
+            let response;
+
+            if (jaCurtiu) {
+                response = await fetch('/api/curtidas/', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idPostagem: idPostagem,
+                        idUsuario: idUsuario
+                    })
+                });
+            } else {
+                response = await fetch('/api/curtidas/curtir', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idPostagem: idPostagem,
+                        idUsuario: idUsuario
+                    })
+                });
+            }
+
+            if (!response.ok) {
+                throw new Error('Erro ao processar a curtida');
+            }
+
+            const resultado = await response.json();
+
+            if (resultado.sucesso) {
+                if (jaCurtiu) {
+                    icone.classList.remove("fa-solid");
+                    icone.classList.add("fa-regular");
+                    icone.style.color = "black";
+                } else {
+                    icone.classList.remove("fa-regular");
+                    icone.classList.add("fa-solid");
+                    icone.style.color = "red";
+                }
+
+                infoCurtidas.textContent = `${resultado.totalCurtidas} curtidas`;
+            } else {
+                throw new Error(resultado.erro || 'Erro ao processar curtida');
+            }
+
+        } catch (error) {
+            console.error('Erro ao curtir postagem:', error);
+            alert('Erro ao processar a curtida. Tente novamente.');
+        } finally {
+            icone.style.pointerEvents = 'auto';
+        }
+    }
+
+    async function toggleComentarios(icone, idPostagem) {
+        const comentariosDiv = icone.closest('.postagem').querySelector('.comentarios');
+        const listaComentarios = comentariosDiv.querySelector('.lista-comentarios');
+
+        if (comentariosDiv.style.display === "none") {
+            comentariosDiv.style.display = "block";
+
+            if (listaComentarios.children.length === 0) {
+                await carregarComentarios(idPostagem);
+            }
         } else {
-            icone.classList.remove("fa-solid");
-            icone.classList.add("fa-regular");
-            icone.style.color = "black";
+            comentariosDiv.style.display = "none";
         }
     }
 
-    function toggleComentarios(icone) {
-        const comentariosDiv = icone.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
-        comentariosDiv.style.display = comentariosDiv.style.display === "none" ? "block" : "none";
+    async function carregarComentarios(idPostagem) {
+        try {
+            const response = await fetch(`/api/comentarios/${idPostagem}`);
+
+            if (!response.ok) {
+                throw new Error('Erro ao carregar comentários');
+            }
+
+            const comentarios = await response.json();
+            const listaComentarios = document.querySelector(`.lista-comentarios[data-post-id="${idPostagem}"]`);
+
+            if (!listaComentarios) {
+                console.error('Lista de comentários não encontrada');
+                return;
+            }
+
+            listaComentarios.innerHTML = '';
+
+            comentarios.forEach(comentario => {
+                adicionarComentarioNaLista(comentario, listaComentarios);
+            });
+
+        } catch (error) {
+            console.error('Erro ao carregar comentários:', error);
+            alert('Erro ao carregar comentários');
+        }
     }
 
-    function enviarComentario(botao) {
-        const divComentarios = botao.nextElementSibling;
+    function adicionarComentarioNaLista(comentario, listaComentarios) {
+        const divComentario = document.createElement('div');
+        divComentario.className = 'comentario-item';
+        divComentario.setAttribute('data-comentario-id', comentario.idcomentario);
+
+        const dataComentario = new Date(comentario.dtComent);
+        const dataFormatada = dataComentario.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        const idUsuarioLogado = sessionStorage.ID_USUARIO;
+        const podeExcluir = comentario.fkUsuario == idUsuarioLogado;
+
+        divComentario.innerHTML = `
+        <div class="comentario-header">
+            <img src="${comentario.fotoPerfil || './assets/img/avatarPerfil.jpg'}" 
+                 alt="Foto do usuário" 
+                 class="foto-comentario">
+            <div class="comentario-info">
+                <span class="nome-comentario">${comentario.nomeUsuario}:</span>
+            </div>
+            ${podeExcluir ? `<button class="btn-excluir-comentario" onclick="excluirComentario(${comentario.idcomentario}, this)" title="Excluir comentário">
+                <i class="fa-solid fa-trash"></i>
+            </button>` : ''}
+        </div>
+        <p class="texto-comentario">${comentario.texto}</p>
+    `;
+
+        listaComentarios.appendChild(divComentario);
+    }
+
+    async function enviarComentario(botao, idPostagem) {
+        const idUsuario = sessionStorage.ID_USUARIO;
         const inputComentario = botao.previousElementSibling;
+        const textoComentario = inputComentario.value.trim();
 
-        if (inputComentario.value.trim() !== "") {
-            const novoComentario = document.createElement("p");
-            novoComentario.textContent = inputComentario.value;
-            divComentarios.appendChild(novoComentario);
-            inputComentario.value = "";
+        if (!idUsuario) {
+            alert('Faça login para comentar.');
+            return;
         }
+
+        if (!textoComentario) {
+            alert('Digite um comentário antes de enviar.');
+            return;
+        }
+
+        if (textoComentario.length > 100) {
+            alert('O comentário deve ter no máximo 100 caracteres.');
+            return;
+        }
+
+        botao.disabled = true;
+        const textoOriginal = botao.textContent;
+        botao.textContent = 'Enviando...';
+
+        try {
+            const response = await fetch('/api/comentarios/coment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    texto: textoComentario,
+                    idPostagem: idPostagem,
+                    idUsuario: idUsuario
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.erro || 'Erro ao enviar comentário');
+            }
+
+            const resultado = await response.json();
+
+            if (resultado.mensagem) {
+                inputComentario.value = '';
+
+                await carregarComentarios(idPostagem);
+
+                console.log('Comentário enviado com sucesso');
+            } else {
+                throw new Error('Erro ao processar comentário');
+            }
+
+        } catch (error) {
+            console.error('Erro ao enviar comentário:', error);
+            alert('Erro ao enviar comentário: ' + error.message);
+        } finally {
+            // deixa o botão ativo denovo
+            botao.disabled = false;
+            botao.textContent = textoOriginal;
+        }
+    }
+
+    async function excluirComentario(idComentario, botaoExcluir) {
+        const idUsuario = sessionStorage.ID_USUARIO;
+
+        if (!idUsuario) {
+            alert('Faça login para excluir comentários.');
+            return;
+        }
+
+        if (!confirm('Tem certeza que deseja excluir este comentário?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/comentarios/${idComentario}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idUsuario: idUsuario
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.erro || 'Erro ao excluir comentário');
+            }
+
+            const resultado = await response.json();
+
+            if (resultado.mensagem) {
+                const comentarioItem = botaoExcluir.closest('.comentario-item');
+                if (comentarioItem) {
+                    comentarioItem.remove();
+                }
+                console.log('Comentário excluído com sucesso');
+            } else {
+                throw new Error('Erro ao processar exclusão');
+            }
+
+        } catch (error) {
+            console.error('Erro ao excluir comentário:', error);
+            alert('Erro ao excluir comentário: ' + error.message);
+        }
+    }
+
+
+
+
+
+    function infoUser() {
+
     }
 </script>
