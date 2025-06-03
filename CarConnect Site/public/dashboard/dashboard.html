@@ -45,20 +45,6 @@
         inicializarPagina();
     };
 
-    // Função para inicializar a página
-    function inicializarPagina() {
-        // Debug - verificar sessionStorage
-        console.log('SessionStorage contents:', {
-            ID_USUARIO: sessionStorage.ID_USUARIO,
-            NOME_USUARIO: sessionStorage.NOME_USUARIO
-        });
-
-         if (sessionStorage.NOME_USUARIO) {
-            document.getElementById('nome_usuario').innerHTML = sessionStorage.NOME_USUARIO;
-        }
-
-      }
-
     function volta(){
 
         setTimeout(() => {

@@ -81,7 +81,7 @@ label {
     top: 80px;
     width: 80%;
     padding: 10px;
-    margin-top: 25px;
+    margin-top: 28px;
     border: none;
     background-color: #547792;
     color: white;
@@ -93,6 +93,24 @@ label {
 
 .perfil button:hover {
     background-color: #94B4C1;
+}
+
+.perfil button .fas.fa-sign-out-alt {
+    position: relative;
+    left: 7px;
+    font-size: 16px;
+}
+
+.perfil button .fa-solid.fa-plus {
+    position: relative;
+    left: 7px;
+    font-size: 16px;
+}
+
+.perfil button span{
+    position: relative;
+    font-size: 18px;
+    left: 7px;
 }
 
 .feed {

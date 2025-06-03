@@ -22,6 +22,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var feedRouter = require('./src/routes/feed');
 var curtidasRouter = require('./src/routes/curtida')
 var comentariosRouter = require('./src/routes/comentario')
+var dashboardRouter = require('./src/routes/dashboard')
 
 
 app.use(express.json({ limit: '15mb' }));
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({ limit: '15mb', extended: true }));
 app.use('/api/feed', feedRouter);
 app.use('/api/curtidas', curtidasRouter);
 app.use('/api/comentarios', comentariosRouter);
+app.use('/dash', dashboardRouter)
 
 
 app.use(cors({
