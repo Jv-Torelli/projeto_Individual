@@ -51,9 +51,10 @@ function inicializarPagina() {
     var nomeUsuario = sessionStorage.NOME_USUARIO;
     var idUsuario = sessionStorage.ID_USUARIO;
 
-    document.getElementById('nome_usuario').textContent = nomeUsuario;
+    document.getElementById('nome_usuario').innerHTML = `${nomeUsuario}`;
 
     obterKPIs(idUsuario);
+    obterDadosGrafico(idUsuario);
 }
 
 async function obterKPIs(idUsuario) {
@@ -84,43 +85,108 @@ async function obterKPIs(idUsuario) {
         }
     }
 
+    async function obterDadosGrafico(idUsuario) {
+    try {
+        const resposta = await fetch(`/dash/grafico/${idUsuario}`);
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+        }
+
+        const dados = await resposta.json();
+        renderizarGrafico(dados);
+    } catch (error) {
+        console.error('Erro ao carregar gráfico:', error);
+        alert('Erro ao carregar os dados do gráfico');
+    }
+}
+
+function renderizarGrafico(dados) {
+      const ctx = document.getElementById('graficoCurtidas').getContext('2d');
+
+    const labels = dados.map((item, index) => `Post ${index + 1}`);
+    const valores = dados.map(item => item.total_curtidas);
+
+    const maxCurtidas = Math.max(...valores);
+    const sugestaoMax = maxCurtidas * 1.5;
+
+    const cores = ['#213448', '#94B4C1', '#547792', '#76b7b2', '#4300FF', '#00CAFF', '#4ED7F1', '#A8F1FF', '#71C0BB', '#27548A'];
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Curtidas por Post',
+                data: valores,
+                backgroundColor: cores.slice(0, valores.length),
+                borderRadius: 8, 
+                borderSkipped: false 
+            }]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                duration: 1500,
+                easing: 'easeOutBounce'
+            },
+            plugins: {
+                legend: { 
+                    labels: { 
+                        color: '#333',
+                        font: {
+                            size: 14,
+                            family: 'Arial'
+                        }
+                    } 
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    cornerRadius: 4,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return tooltipItems[0].label;
+                        },
+                        label: function(tooltipItem) {
+                            return `Curtidas: ${tooltipItem.raw}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#555',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#555',
+                        font: {
+                            size: 12
+                        },
+                        beginAtZero: true
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,0.05)'
+                    },
+                    suggestedMax: sugestaoMax
+                }
+            }
+        }
+    });
+}
+
 window.onload = function() {
     inicializarPagina();
 };
 
-    const ctx = document.getElementById('graficoCurtidas').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Post 1', 'Post 2', 'Post 3', 'Post 4', 'Post 5'],
-        datasets: [{
-          label: 'Curtidas por Postagem',
-          data: [120, 200, 150, 80, 250],
-          backgroundColor: '#213448'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            labels: {
-              color: 'black'
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: 'black'
-            }
-          },
-          y: {
-            ticks: {
-              color: 'black'
-            }
-          }
-        }
-      }
-    });
 
   </script>

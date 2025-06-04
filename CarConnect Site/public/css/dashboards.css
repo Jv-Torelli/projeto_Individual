@@ -36,7 +36,7 @@
  }
 
  .nome_user {
-   font-size: 18px;
+   font-size: 20px;
    color: #ECEFCA;
    font-weight: 500;
  }
@@ -44,22 +44,31 @@
  .dashboard-container {
    display: flex;
    flex-direction: column;
-   gap: 2rem;
-   padding: 2rem;
+   gap: 50px;
+   padding: 30px;
  }
 
  .indicadores {
    display: flex;
    justify-content: space-between;
-   gap: 1rem;
+   gap: 16px;
  }
 
  .indicador {
    background-color: #547792;
    flex: 1;
-   padding: 1rem;
+   padding: 16px;
    border-radius: 10px;
    text-align: center;
+ }
+
+ .indicadores .indicador h3{
+    font-size: 21px;
+    font-weight: bold;
+ }
+ .indicadores .indicador p{
+    font-size: 22px;
+    font-weight: 600;
  }
 
  .grafico-container {

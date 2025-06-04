@@ -20,7 +20,21 @@ function obterKPIs(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+async function obterCurtidasPorPost(idUsuario) {
+    const instrucaoSql =
+        `
+        SELECT p.idpostagem, COUNT(c.idcurtida) AS total_curtidas
+         FROM postagem p
+         LEFT JOIN curtida c ON p.idpostagem = c.fkPostagem
+         WHERE p.fkUsuario = ${idUsuario}
+         GROUP BY p.idpostagem
+         ORDER BY p.idpostagem
+         `;
+    
+        return database.executar(instrucaoSql);
+}
 
 module.exports = {
     obterKPIs,
+    obterCurtidasPorPost
 };

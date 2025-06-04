@@ -20,7 +20,20 @@ async function obterKPIs(req, res) {
     }
 }
 
+async function obterDadosGrafico(req, res) {
+    const { idUsuario } = req.params;
+
+    try {
+        const dados = await dashboardModel.obterCurtidasPorPost(idUsuario);
+        res.json(dados);
+    } catch (error) {
+        console.error('Erro ao obter dados do gráfico:', error);
+        res.status(500).json({ erro: 'Erro ao obter dados do gráfico' });
+    }
+}
+
 
 module.exports = {
     obterKPIs,
+    obterDadosGrafico
 }
