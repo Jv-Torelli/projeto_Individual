@@ -11,7 +11,7 @@
 <body>
   <header>
     <button class="btn-voltar" onclick="volta()">Voltar</button>
-    <div class="nome_user">Olá, <span id="nome_usuario"></span></div>
+    <div class="nome_user">Olá, <span id="nome_usuario">Usuário X</span></div>
   </header>
 
   <div class="dashboard-container">
@@ -76,6 +76,7 @@ async function obterKPIs(idUsuario) {
             console.log('Dados recebidos:', dados);
             document.getElementById('totalPostagens').innerHTML = dados.total_posts || 0;
             document.getElementById('totalComentarios').innerHTML = dados.total_comentarios || 0;
+            document.getElementById('totalInteracoes').innerHTML = dados.total_interacoes || 0;
 
         } catch (error) {
             console.error('Erro ao carregar KPIs:', error);
