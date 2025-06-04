@@ -11,22 +11,22 @@
 <body>
   <header>
     <button class="btn-voltar" onclick="volta()">Voltar</button>
-    <div class="nome_user">Olá, <span id="nome_usuario">Usuário X</span></div>
+    <div class="nome_user">Olá, <span id="nome_usuario"></span></div>
   </header>
 
   <div class="dashboard-container">
     <div class="indicadores">
       <div class="indicador">
         <h3>Postagens</h3>
-        <p>--</p>
+        <p id="totalPostagens">--</p>
       </div>
       <div class="indicador">
-        <h3>Total de Curtidas</h3>
-        <p>--</p>
+        <h3>Total de Comentários</h3>
+        <p id="totalComentarios">--</p>
       </div>
       <div class="indicador">
         <h3>Total de Interações</h3>
-        <p>--</p>
+        <p id="totalInteracoes">--</p>
       </div>
     </div>
 
@@ -39,19 +39,53 @@
 </body>
 </html>
 
-  <script>
+<script>
 
-    window.onload = function () {
-        inicializarPagina();
-    };
+function volta(){
+    setTimeout(() => {
+        window.location.href = "../feed.html";
+    }, 2000);
+}
 
-    function volta(){
+function inicializarPagina() {
+    var nomeUsuario = sessionStorage.NOME_USUARIO;
+    var idUsuario = sessionStorage.ID_USUARIO;
 
-        setTimeout(() => {
-           window.location.href = "../feed.html" 
-        }, 2000);
+    document.getElementById('nome_usuario').textContent = nomeUsuario;
 
+    obterKPIs(idUsuario);
+}
+
+async function obterKPIs(idUsuario) {
+        try {
+            const resposta = await fetch(`/dash/dashboard/${idUsuario}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+             if (!resposta.ok) {
+                throw new Error(`Erro HTTP: ${resposta.status}`);
+            }
+
+            console.log('Status da resposta:', resposta.status);
+
+            const dados = await resposta.json();
+            console.log('Entrei na const dados', dados)
+            console.log('Dados recebidos:', dados);
+            document.getElementById('totalPostagens').innerHTML = dados.total_posts || 0;
+            document.getElementById('totalComentarios').innerHTML = dados.total_comentarios || 0;
+
+        } catch (error) {
+            console.error('Erro ao carregar KPIs:', error);
+            alert('Erro ao carregar as kpis')
+        }
     }
+
+window.onload = function() {
+    inicializarPagina();
+};
 
     const ctx = document.getElementById('graficoCurtidas').getContext('2d');
     new Chart(ctx, {
@@ -88,36 +122,4 @@
       }
     });
 
-    async function carregarDados() {
-      try {
-        const dados = {
-          totalCurtidas: 4580,
-          totalPostagens: 120,
-          seguidores: 1340,
-          curtidasPorPost: [
-            { nome: 'Post 1', curtidas: 120 },
-            { nome: 'Post 2', curtidas: 200 },
-            { nome: 'Post 3', curtidas: 150 },
-            { nome: 'Post 4', curtidas: 80 },
-            { nome: 'Post 5', curtidas: 250 }
-          ]
-        };
-
-        document.getElementById('totalCurtidas').textContent = dados.totalCurtidas;
-        document.getElementById('totalPostagens').textContent = dados.totalPostagens;
-        document.getElementById('seguidores').textContent = dados.seguidores;
-
-        atualizarGrafico(dados.curtidasPorPost);
-      } catch (error) {
-        console.error('Erro ao carregar dados:', error);
-      }
-    }
-
-    function atualizarGrafico(dadosPosts) {
-      chart.data.labels = dadosPosts.map(post => post.nome);
-      chart.data.datasets[0].data = dadosPosts.map(post => post.curtidas);
-      chart.update();
-    }
-
-    window.onload = carregarDados;
   </script>

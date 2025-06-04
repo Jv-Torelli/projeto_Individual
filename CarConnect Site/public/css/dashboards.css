@@ -1,60 +1,71 @@
  body {
-      margin: 0;
-      font-family: 'Times New Roman', Times, serif;
-      background-color: #213448;
-      color: #ECEFCA;
-      max-width: 1500px;
-    }
-    header {
-      background-color: #547792;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .btn-voltar {
-      background-color: #94B4C1;
-      border: none;
-      padding: 0.5rem 1rem;
-      color: #ECEFCA;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
+   margin: 0;
+   font-family: 'Times New Roman', Times, serif;
+   background-color: #213448;
+   color: #ECEFCA;
+   max-width: 1500px;
+ }
 
-    .btn-voltar:hover{
-      background-color: #213448;
-    }
+ header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: #547792;
+   color: white;
+   width: 92%;
+   padding: 15px 40px;
+   border-radius: 8px;
+   margin-top: 20px;
+   margin-right: auto;
+   margin-left: auto;
+ }
 
-    .nome_user{
-      font-size: 18px;
-      color: #ECEFCA;
-      font-weight: 500;
-    }
+ .btn-voltar {
+   background-color: #94B4C1;
+   border: none;
+   padding: 0.5rem 1rem;
+   color: #ECEFCA;
+   font-weight: bold;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+ }
 
-    .dashboard-container {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .indicadores {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .indicador {
-      background-color: #547792;
-      flex: 1;
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .grafico-container {
-      background-color: #ECEFCA;
-      color: black;
-      padding: 15px;
-      border-radius: 10px;
-      height: 600px;
-    }
+ .btn-voltar:hover {
+   background-color: #213448;
+ }
+
+ .nome_user {
+   font-size: 18px;
+   color: #ECEFCA;
+   font-weight: 500;
+ }
+
+ .dashboard-container {
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+   padding: 2rem;
+ }
+
+ .indicadores {
+   display: flex;
+   justify-content: space-between;
+   gap: 1rem;
+ }
+
+ .indicador {
+   background-color: #547792;
+   flex: 1;
+   padding: 1rem;
+   border-radius: 10px;
+   text-align: center;
+ }
+
+ .grafico-container {
+   background-color: #ECEFCA;
+   color: black;
+   padding: 15px;
+   border-radius: 10px;
+   height: 600px;
+ }
