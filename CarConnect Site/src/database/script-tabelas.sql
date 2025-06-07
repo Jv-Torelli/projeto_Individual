@@ -7,16 +7,15 @@ comandos para mysql server
 */
 
 CREATE DATABASE carConnect;
-USE carConnect;
+USE carConnect;	
+
 
 CREATE TABLE usuario (
     idusuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
-    bio VARCHAR(200),
     fotoPerfil LONGTEXT,
-    dtCriacaoConta DATE,
     senha VARCHAR(12)
 );
 
@@ -29,7 +28,6 @@ CREATE TABLE postagem (
     fkUsuario INT,
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
-
 
 CREATE TABLE curtida (
     idcurtida INT PRIMARY KEY AUTO_INCREMENT,
@@ -48,3 +46,7 @@ CREATE TABLE comentario (
     FOREIGN KEY (fkPostagem) REFERENCES postagem(idpostagem),
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
+
+-- CREATE USER 'root'@'%' IDENTIFIED BY 'Jv190107';
+-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+-- FLUSH PRIVILEGES;

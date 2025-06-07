@@ -7,9 +7,7 @@ CREATE TABLE usuario (
     nome VARCHAR(45) NOT NULL,
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
-    bio VARCHAR(200),
     fotoPerfil LONGTEXT,
-    dtCriacaoConta DATE,
     senha VARCHAR(12)
 );
 
