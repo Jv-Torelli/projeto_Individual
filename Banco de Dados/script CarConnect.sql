@@ -2,9 +2,10 @@ CREATE DATABASE carConnect;
 USE carConnect;	
 
 
+
 CREATE TABLE usuario (
     idusuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL,
+    nome VARCHAR(45) NOT NULL UNIQUE,
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
     fotoPerfil LONGTEXT,
@@ -28,6 +29,7 @@ CREATE TABLE curtida (
     FOREIGN KEY (fkPostagem) REFERENCES postagem(idpostagem),
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
+
 
 CREATE TABLE comentario (
     idcomentario INT PRIMARY KEY AUTO_INCREMENT,
