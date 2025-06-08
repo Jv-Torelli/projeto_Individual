@@ -500,7 +500,6 @@ async function curtirPost(icone, idPostagem) {
     const jaCurtiu = icone.classList.contains("fa-solid");
     const infoCurtidas = icone.closest('.postagem').querySelector('.info-curtidas');
 
-    // desabilita para não ter mais de um click
     icone.style.pointerEvents = 'none';
 
     try {
@@ -696,7 +695,6 @@ async function enviarComentario(botao, idPostagem) {
         console.error('Erro ao enviar comentário:', error);
         alert('Erro ao enviar comentário: ' + error.message);
     } finally {
-        // deixa o botão ativo denovo
         botao.disabled = false;
         botao.textContent = textoOriginal;
     }

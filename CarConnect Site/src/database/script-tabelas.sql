@@ -10,9 +10,10 @@ CREATE DATABASE carConnect;
 USE carConnect;	
 
 
+
 CREATE TABLE usuario (
     idusuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45) NOT NULL,
+    nome VARCHAR(45) NOT NULL UNIQUE,
     email VARCHAR(80) NOT NULL,
     dtNascimento DATE,
     fotoPerfil LONGTEXT,
@@ -37,6 +38,7 @@ CREATE TABLE curtida (
     FOREIGN KEY (fkUsuario) REFERENCES usuario(idusuario)
 );
 
+
 CREATE TABLE comentario (
     idcomentario INT PRIMARY KEY AUTO_INCREMENT,
     texto VARCHAR(100),
@@ -50,3 +52,4 @@ CREATE TABLE comentario (
 -- CREATE USER 'root'@'%' IDENTIFIED BY 'Jv190107';
 -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 -- FLUSH PRIVILEGES;
+
