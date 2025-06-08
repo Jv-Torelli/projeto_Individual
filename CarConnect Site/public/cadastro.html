@@ -51,7 +51,31 @@ function cadastrar() {
       mensagem_erro.innerHTML =
         "Preencher campo que está em branco";
 
-      finalizarAguardar();
+      setTimeout(sumirMensagem, 5000);
+      return false;
+    } 
+
+    if (!emailVar.includes('@') || !emailVar.includes('.')) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "E-mail inválido! O e-mail deve conter @ e pelo menos um ponto (.)";
+      setTimeout(sumirMensagem, 5000);
+      return false;
+    }
+
+    if (senhaVar.length < 8 || senhaVar.length > 12) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "A senha deve ter entre 8 e 12 caracteres";
+      setTimeout(sumirMensagem, 5000);
+      return false;
+    }
+
+    if (!senhaVar.includes('!') && !senhaVar.includes('@') && !senhaVar.includes('#') && 
+        !senhaVar.includes('$') && !senhaVar.includes('%') && !senhaVar.includes('&') && 
+        !senhaVar.includes('*')
+      ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos um caractere especial!";
+      setTimeout(sumirMensagem, 5000);
       return false;
     } else {
       setTimeout(sumirMensagem, 5000);
